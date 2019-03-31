@@ -72,24 +72,17 @@ void print__list(const __list *__l1)
 
 void erase__list(__list *__l1)
 {
-
-	__tipoNo *auxliliar;
-	__tipoNo *anterior;
-
-	auxliliar = __l1->primeiro;
-
-	if (!auxliliar)
-		return;
-
-	anterior = auxliliar;
-	auxliliar = auxliliar->proximo;
+	
+	__tipoNo *tmp;
+	__tipoNo *auxliliar = __l1->primeiro;
+	
 	while (auxliliar)
 	{
 
-		free(anterior);
-		anterior = auxliliar;
+		tmp = auxliliar;
 		auxliliar = auxliliar->proximo;
-
+		free(tmp);
+		
 	}
 
 	__l1->primeiro = __l1->ultimo = NULL;
