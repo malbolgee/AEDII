@@ -8,7 +8,7 @@
 
 int* array(int __size);
 void free__array(int *__array);
-void array__fill__random(int num, ...);
+void array__fill__random(int argc, ...);
 void quickSort(int *__array, int __size);
 void bubbleSort(int *__array, int __size);
 void insertionSort(int *__array, int __size);
