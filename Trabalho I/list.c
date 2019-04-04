@@ -10,7 +10,7 @@ void list(l_list *__l1)
 
 }
 
-void push(l_list *__l1, int __dado)
+void push(l_list *__l1, const int __dado)
 {
 
 	__tipoNo *auxiliar;
@@ -30,7 +30,7 @@ void push(l_list *__l1, int __dado)
 
 }
 
-void array__to__list(l_list *__l1, int *__array, int __array__size)
+void array__to__list(l_list *__l1, const int *__array, const int __array__size)
 {
 
 	int i;
@@ -40,7 +40,7 @@ void array__to__list(l_list *__l1, int *__array, int __array__size)
 }
 
 
-bool list__search(const l_list *__l1, int __key)
+bool list__search(const l_list *__l1, const int __key)
 {
 
 	__tipoNo * auxiliar;

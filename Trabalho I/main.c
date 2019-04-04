@@ -16,6 +16,7 @@ int main ()
 	clock_t t_ini, t_fim;
 			
 	vetor = array(__MAXSIZE);
+	array__fill__ordered(vetor, __MAXSIZE);
 
 	for (i = 0; i < __NUMBER__TEST; ++i)
 	{
@@ -23,12 +24,12 @@ int main ()
 		int key = __RAND__KEY;
 
 		t_ini = clock();
-		buscaBin(vetor, __MAXSIZE, key);
+		binary__search(vetor, __MAXSIZE, key);
 		t_fim = clock();
 		results.r_searchs[i][0] = (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
 
 		t_ini = clock();
-		array__search(vetor, __MAXSIZE, key);
+		array__linear__search(vetor, __MAXSIZE, key);
 		t_fim = clock();
 		results.r_searchs[i][1] = (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
 	
@@ -46,7 +47,7 @@ int main ()
 		int key = __RAND__KEY;
 
 		t_ini = clock();
-		array__search(vetor, __MAXSIZE, key);
+		array__linear__search(vetor, __MAXSIZE, key);
 		t_fim = clock();
 		results.r_searchs[i][0] = (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
 
@@ -81,7 +82,7 @@ int main ()
 		results.r_sort[i][1] = (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
 
 		t_ini = clock();
-		quickSort(vetor3, __MAXSIZE);
+		quickSort(vetor3, __MAXSIZEORD);
 		t_fim = clock();
 		results.r_sort[i][2] = (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
 		

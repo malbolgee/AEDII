@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 
-int* array(int __size)
+int* array(const int __size)
 {
 
 	return (int *) malloc(sizeof(int) * __size);
@@ -18,7 +18,7 @@ void free__array(int *__array)
 
 }
 
-bool array__search(const int *__array, int __size, int __key)
+bool array__linear__search(const int *__array, const int __size, const int __key)
 {
 
 	int i;
@@ -30,7 +30,7 @@ bool array__search(const int *__array, int __size, int __key)
 
 }
 
-bool buscaBin(const int *__array, int __size, int __key)
+bool binary__search(const int *__array, const int __size, const int __key)
 {
 
 	int hi, low, mid;
@@ -54,7 +54,7 @@ bool buscaBin(const int *__array, int __size, int __key)
 
 }
 
-void array__print(const int *__array, int __size)
+void array__print(const int *__array, const int __size)
 {
 
 	int i;
@@ -63,7 +63,7 @@ void array__print(const int *__array, int __size)
 
 }
 
-void array__fill__ordered(int *__array, int __size)
+void array__fill__ordered(int *__array, const int __size)
 {
 
 	int i, j;
@@ -72,7 +72,7 @@ void array__fill__ordered(int *__array, int __size)
 
 }
 
-void insertionSort(int *__array, int __size)
+void insertionSort(int *__array, const int __size)
 {
 
 	int i, j, pivot;

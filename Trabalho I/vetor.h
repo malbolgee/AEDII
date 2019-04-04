@@ -6,14 +6,14 @@
 #define __ARRAY__RANDOM__ELEMENT ((rand() % (__MAXSIZEORD) << 2) + 1)
 #define SEED srand(time(NULL))
 
-int* array(int __size);
+int* array(const int __size);
 void free__array(int *__array);
 void array__fill__random(int argc, ...);
 void quickSort(int *__array, int __size);
 void bubbleSort(int *__array, int __size);
-void insertionSort(int *__array, int __size);
-void array__print(const int *__array, int __size);
-void array__fill__ordered(int *__array, int __szie);
+void insertionSort(int *__array, const int __size);
+void array__print(const int *__array, const int __size);
+void array__fill__ordered(int *__array, const int __size);
 void quickSort_v(int *__array, int __ini, int __fim);
-bool buscaBin(const int *__array, int __size, int __key);
-bool array__search(const int *__array, int __size, int __key);
+bool binary__search(const int *__array, int __size, const int __key);
+bool array__linear__search(const int *__array, const int __size, const int __key);

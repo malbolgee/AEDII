@@ -45,7 +45,7 @@ void result(r_results *__table, int __execution__type)
 
 		printf("\n");
 		puts("===================================================================================");
-		printf("\t   Média B.S. no Vetor\t\t\t     Média B.S na Lista\t\n");
+		printf("\t   Média B.S. no Vetor\t\t\t     Média B.S. na Lista\t\n");
 		printf("\t\t%lfs\t\t \t\t %lfs\t\t\n", __table->r_searchs[30][0] / __NUMBER__TEST, __table->r_searchs[31][1] / __NUMBER__TEST);
 		puts("===================================================================================");
 		printf("\n\n");
