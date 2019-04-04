@@ -1,46 +1,79 @@
 #include "test.h"
 #include <stdio.h>
 
-void result_kl(float __key, int __search)
+void result(r_results *__table, int __execution__type)
 {
 
-	switch (__search)
+	int i, j;
+	if (__execution__type == __SEARCH__ARRAY)
+	{
+		
+		printf("\t\tBusca Binária\t\t \t      Busca Sequencial\t\n");
+		puts("---------------------------------------------------------------------------------");
+		for (i = 0; i < __NUMBER__TEST; ++i)
+		{
+
+			printf("%d:\t\t %lfs\t\t |\t\t %lfs\t\t|\n", i + 1, __table->r_searchs[i][0], __table->r_searchs[i][1]);
+			puts("---------------------------------------------------------------------------------");
+			__table->r_searchs[30][0] += __table->r_searchs[i][0];
+			__table->r_searchs[31][1] += __table->r_searchs[i][1];
+
+		}
+
+		printf("\n");
+		puts("===================================================================================");
+		printf("\t     Média B. Binária\t\t \t   Média B. Sequencial\t\n");
+		printf("\t\t%lfs\t\t \t\t %lfs\t\t\n", __table->r_searchs[30][0] / __NUMBER__TEST, __table->r_searchs[31][1]) / __NUMBER__TEST;
+		puts("===================================================================================");
+		printf("\n\n");
+
+	}
+	else if (__execution__type == __SEARCH__ARRAY__AND__LIST)
 	{
 
-		case __LINEAR:
-			printf("A busca sequencial demorou %f segundos para ser executada\n", __key);
-			return;
-		case __BINARIA:
-			printf("A busca binaria demorou %f segundos para ser executada\n", __key);
-			return;
-		case __BUBBLE:
-			printf("Bubble demorou %f segundos\n", __key);
-			return;
-		case __INSERTION:
-			printf("Insertion demorou %f segundos\n", __key);
-			return;
-		case __QUICK:
-			printf("Quick demorou %f segundos\n", __key);
-			return;
-		case __MEDIA__BINARIA:
-			printf("Busca binária demorou %f segundos em média para ser executada\n", __key / 30);
-			return;
-		case __MEDIA__LINEAR:
-			printf("Busca sequencial demorou %f segundos em média para ser executada\n", __key / 30);
-			return;
-		case __LINEAR__VETOR:
-			printf("A busca sequencial demorou %f segundos para ser executada no vetor\n", __key);
-			return;
-		case __LINEAR__LIST:
-			printf("A busca sequencial demorou %f segundos para ser executada na lista\n", __key);
-			return;
-		case __MEDIA__VETOR:
-			printf("A busca sequencial demorou %f segundos em média para ser executada no vetor\n", __key / 30);
-			return;
-		case __MEDIA__LIST:
-			printf("A busca sequencial demorou %f segundos em média para ser executada na lista\n", __key / 30);
-			return;
+		printf("\t     Busca S. no Vetor\t\t \t      Busca S. na Lista\t\n");
+		puts("---------------------------------------------------------------------------------");
+		for (i = 0; i < __NUMBER__TEST; ++i)
+		{
 
+			printf("%d:\t\t %lfs\t\t |\t\t %lfs\t\t|\n", i + 1, __table->r_searchs[i][0], __table->r_searchs[i][1]);
+			puts("---------------------------------------------------------------------------------");
+			__table->r_searchs[30][0] += __table->r_searchs[i][0];
+			__table->r_searchs[31][1] += __table->r_searchs[i][1];
+
+		}
+
+		printf("\n");
+		puts("===================================================================================");
+		printf("\t   Média B.S. no Vetor\t\t\t     Média B.S na Lista\t\n");
+		printf("\t\t%lfs\t\t \t\t %lfs\t\t\n", __table->r_searchs[30][0] / __NUMBER__TEST, __table->r_searchs[31][1] / __NUMBER__TEST);
+		puts("===================================================================================");
+		printf("\n\n");
+
+	}
+	else if (__execution__type == __SORT)
+	{
+
+		printf("\t       BubbleSort\t      InsertionSort\t\tQuickSort\t\n");
+		puts("---------------------------------------------------------------------------------");
+		for (i = 0; i < __NUMBER__TEST; ++i)
+		{
+
+			printf("%d:\t\t%lfs\t|\t%lfs\t|\t%lfs\t|\n", i + 1, __table->r_sort[i][0], __table->r_sort[i][1], __table->r_sort[i][2]);
+			puts("---------------------------------------------------------------------------------");
+			__table->r_sort[30][0] += __table->r_sort[i][0];
+			__table->r_sort[31][1] += __table->r_sort[i][1];
+			__table->r_sort[32][2] += __table->r_sort[i][2];
+
+		}
+
+		printf("\n");
+		puts("===================================================================================");
+		printf("\t   Média BubbleSort\t   Média InsertionSort\t     Média QuickSort\n");
+		printf("\t       %lfs\t\t%lfs\t\t %lfs\t\n", __table->r_sort[30][0] / __NUMBER__TEST, __table->r_sort[31][1] / __NUMBER__TEST, __table->r_sort[32][2] / __NUMBER__TEST);
+		puts("===================================================================================");
+		printf("\n\n");
+		
 	}
 
 }

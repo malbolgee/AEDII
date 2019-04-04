@@ -3,13 +3,17 @@
 
 #define __MAXSIZE 1000000
 #define __MAXSIZEORD 100000
+#define __ARRAY__RANDOM__ELEMENT ((rand() % (__MAXSIZEORD) << 2) + 1)
+#define SEED srand(time(NULL))
 
-int* array(int __tam);
-void free__array(int *__vetor);
-void quickSort(int *__vetor, int __tam);
-void bubbleSort(int *__vetor, int __tam);
-void insertionSort(int *__vetor, int __tam);
-void array__print(const int *__vetor, int __tam);
-void quickSort_v(int *__vetor, int __ini, int __fim);
-bool buscaBin(const int *__vetor, int __tam, int __key);
-bool array__search(const int *__vetor, int __tam, int __key);
+int* array(int __size);
+void free__array(int *__array);
+void array__fill__random(int num, ...);
+void quickSort(int *__array, int __size);
+void bubbleSort(int *__array, int __size);
+void insertionSort(int *__array, int __size);
+void array__print(const int *__array, int __size);
+void array__fill__ordered(int *__array, int __szie);
+void quickSort_v(int *__array, int __ini, int __fim);
+bool buscaBin(const int *__array, int __size, int __key);
+bool array__search(const int *__array, int __size, int __key);

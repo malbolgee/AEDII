@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void list(__list *__l1)
+void list(l_list *__l1)
 {
 
 	__l1->primeiro = NULL;
@@ -10,7 +10,7 @@ void list(__list *__l1)
 
 }
 
-void push(__list *__l1, int __dado)
+void push(l_list *__l1, int __dado)
 {
 
 	__tipoNo *auxiliar;
@@ -20,21 +20,27 @@ void push(__list *__l1, int __dado)
 		exit(1);
 
 	if (__l1->primeiro)
-	{
-
 		__l1->ultimo->proximo = auxiliar;
-		auxiliar->proximo = NULL;
-
-	}
 	else
 		__l1->primeiro = auxiliar;
 
 	__l1->ultimo = auxiliar;
+	auxiliar->proximo = NULL;
 	auxiliar->dado = __dado;
 
 }
 
-bool list__search(const __list *__l1, int __key)
+void array__to__list(l_list *__l1, int *__array, int __array__size)
+{
+
+	int i;
+	for (i = 0; i < __array__size; ++i)
+		push(__l1, __array[i]);
+
+}
+
+
+bool list__search(const l_list *__l1, int __key)
 {
 
 	__tipoNo * auxiliar;
@@ -54,7 +60,7 @@ bool list__search(const __list *__l1, int __key)
 
 }
 
-void print__list(const __list *__l1)
+void print__list(const l_list *__l1)
 {
 
 	__tipoNo *auxiliar;
@@ -70,7 +76,7 @@ void print__list(const __list *__l1)
 
 }
 
-void erase__list(__list *__l1)
+void erase__list(l_list *__l1)
 {
 	
 	__tipoNo *tmp;
@@ -89,7 +95,7 @@ void erase__list(__list *__l1)
 
 }
 
-void print__list__to__idx(const __list *__l1, int __idx)
+void print__list__to__idx(const l_list *__l1, int __idx)
 {
 
 	int i = 0;

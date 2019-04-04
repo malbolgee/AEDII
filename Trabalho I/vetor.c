@@ -1,47 +1,49 @@
 #include "vetor.h"
+#include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
-int* array(int __tam)
+int* array(int __size)
 {
 
-	return (int *) malloc(sizeof(int) * __tam);
+	return (int *) malloc(sizeof(int) * __size);
 
 }
 
-void free__array(int *__vetor)
+void free__array(int *__array)
 {
 
-	free(__vetor);
+	free(__array);
 
 }
 
-bool array__search(const int *__vetor, int __size, int __key)
+bool array__search(const int *__array, int __size, int __key)
 {
 
 	int i;
 	for (i = 0; i < __size; ++i)
-		if (__vetor[i] == __key)
+		if (__array[i] == __key)
 			return true;
 
 	return false;
 
 }
 
-bool buscaBin(const int *__vetor, int __tam, int __key)
+bool buscaBin(const int *__array, int __size, int __key)
 {
 
 	int hi, low, mid;
 
 	low = 0;
-	hi = __tam - 1;
+	hi = __size - 1;
 
-	while (low < hi)
+	while (low <= hi)
 	{
 		mid = (low + hi) / 2;
-		if (__vetor[mid] < __key)
+		if (__array[mid] < __key)
 			hi = mid - 1;
-		else if (__vetor[mid] > __key)
+		else if (__array[mid] > __key)
 			low = mid + 1;
 		else
 			return true;
@@ -52,51 +54,60 @@ bool buscaBin(const int *__vetor, int __tam, int __key)
 
 }
 
-void array__print(const int *__vetor, int __tam)
+void array__print(const int *__array, int __size)
 {
 
 	int i;
-	for (i = 0; i < __tam; ++i)
-		printf("%d ", __vetor[i]);
+	for (i = 0; i < __size; ++i)
+		printf("%d ", __array[i]);
 
 }
 
-void insertionSort(int *__vetor, int __tam)
+void array__fill__ordered(int *__array, int __size)
+{
+
+	int i, j;
+	for (i = 0, j = 0; i < __size; ++i, j += (rand() % 499) + 1)
+		__array[i] = j;
+
+}
+
+void insertionSort(int *__array, int __size)
 {
 
 	int i, j, pivot;
 	i = 1;
 
-	while (i < __tam)
+	while (i < __size)
 	{
 
 		j = i - 1;
-		pivot = __vetor[i];
+		pivot = __array[i];
 
-		while (j >= 0 && __vetor[j] > pivot)
-			__vetor[j + 1] = __vetor[j], --j;
+		while (j >= 0 && __array[j] > pivot)
+			__array[j + 1] = __array[j], --j;
 
-		__vetor[j + 1] = pivot;
+		__array[j + 1] = pivot;
 		++i;
 
 	}
 
 }
 
-void bubbleSort(int *__vetor, int __tam)
+void bubbleSort(int *__array, int __size)
 {
 
 	int i, j;
-	while (__tam--)
+	while (__size--)
 	{
 
-		for (i = 0; i < __tam; ++i)
-			if (__vetor[i] > __vetor[i + 1])
+		for (i = 0; i < __size; ++i)
+			if (__array[i] > __array[i + 1])
 			{
 
-				__vetor[i] ^= __vetor[i + 1];
-				__vetor[i + 1] ^= __vetor[i];
-				__vetor[i] ^= __vetor[i + 1];
+				__array[i] ^= __array[i + 1];
+				__array[i + 1] ^= __array[i];
+				__array[i] ^= __array[i + 1];
 
 			}
 
@@ -104,47 +115,73 @@ void bubbleSort(int *__vetor, int __tam)
 
 }
 
-void quickSort(int *__vetor, int __tam)
+void quickSort(int *__array, int __size)
 {
 
-	quickSort_v(__vetor, 0, __tam - 1);
+	quickSort_v(__array, 0, __size - 1);
 
 }
 
-void quickSort_v(int *__vetor, int __ini, int __fim)
+void quickSort_v(int *__array, int __ini, int __fim)
 {
 
-	int i, j, pivo, tmp;
+	int i, j, pivot, tmp;
 	if (__ini < __fim)
 	{
 
 		i = __ini;
 		j = __fim;
-		pivo = __vetor[(i + j) / 2];
+		pivot = __array[(i + j) / 2];
 
 		do
 		{
 
-			while (__vetor[i] < pivo)
+			while (__array[i] < pivot)
 				++i;
-			while (__vetor[j] > pivo)
+			while (__array[j] > pivot)
 				--j;
 
 			if (i <= j)
 			{	
 
-				tmp = __vetor[i];
-				__vetor[i] = __vetor[j];
-				__vetor[j] = tmp;
+				tmp = __array[i];
+				__array[i] = __array[j];
+				__array[j] = tmp;
 				++i, --j;
 
 			}
 
 		} while (i <= j);
 
-		quickSort_v(__vetor, __ini, j);
-		quickSort_v(__vetor, i, __fim);
+		quickSort_v(__array, __ini, j);
+		quickSort_v(__array, i, __fim);
 
 	}
 
+}
+
+
+void array__fill__random(int argc, ...)
+{
+
+	int i, j;
+	va_list valist;
+
+	va_start(valist, argc);
+	int *a[argc];
+	int _size = va_arg(valist, int);
+
+	argc--;
+	for (i = 0; i < argc; ++i)
+		a[i] = va_arg(valist, int *);
+
+	for (i = 0; i < _size; ++i)
+		a[0][i] = __ARRAY__RANDOM__ELEMENT;
+
+	for (i = 1; i < argc; ++i)
+		for (j = 0; j < _size; ++j)
+			a[i][j] = a[i - 1][j];
+	
+	va_end(valist);
+	
 }

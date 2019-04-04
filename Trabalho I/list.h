@@ -13,13 +13,13 @@ typedef struct __list{
 	__tipoNo *primeiro;
 	__tipoNo *ultimo;
 
-} __list;
+} l_list;
 
-typedef __list l_list;
+void list(l_list *__l1);
+void erase__list(l_list *__l1);
+void push(l_list *__l1, int __dado);
+void print__list(const l_list *__l1);
+bool list__search(const l_list *__l1, int __key);
+void print_list__to__idx(const l_list *__l1, int __idx);
+void array__to__list(l_list *__l1, int *__array, int __size);
 
-void list(__list *__l1);
-void erase__list(__list *__l1);
-void push(__list *__l1, int __dado);
-void print__list(const __list *__l1);
-bool list__search(const __list *__l1, int __key);
-void print__list__to__idx(const __list *__l1, int __idx);

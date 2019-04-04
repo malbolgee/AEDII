@@ -1,18 +1,18 @@
+#include "vetor.h"
 #pragma once
 
-#define __LINEAR 1
-#define __BINARIA 2
-#define __BUBBLE 3
-#define __INSERTION 4
-#define __QUICK 5
-#define __MEDIA__BINARIA 6
-#define __MEDIA__LINEAR 7
-#define __MEDIA__BUBBLE 8
-#define __MEDIA__QUICK 9
-#define __MEDIA__INSERTION 10
-#define __LINEAR__VETOR 11
-#define __LINEAR__LIST 12
-#define __MEDIA__VETOR 13
-#define __MEDIA__LIST 14 
+#define __SEARCH__ARRAY 1
+#define __SEARCH__ARRAY__AND__LIST 2
+#define __SORT 3
+#define __NUMBER__TEST 30
+#define __RAND__KEY ((rand() % (__MAXSIZE) << 2) + 1)
 
-void result_kl(float __time, int __search);
+typedef struct __results{
+
+	double r_sort[__NUMBER__TEST + 3][3];
+	double r_searchs[__NUMBER__TEST + 2][2];
+
+} r_results;
+
+extern r_results results;
+void result(r_results *, int __execution__type);
