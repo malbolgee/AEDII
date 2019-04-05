@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <string.h>
 #include "vetor.h"
 #include "list.h"
 #include "test.h"
@@ -66,9 +67,10 @@ int main ()
 	int *vetor2 = array(__MAXSIZEORD);
 	int *vetor3 = array(__MAXSIZEORD);
 
-	for (i = 0; i < __NUMBER__TEST; ++i)
+	for (i = 1; i <= __NUMBER__TEST; ++i)
 	{
 
+		progress__bar(i, __NUMBER__TEST);
 		array__fill__random(4, __MAXSIZEORD, vetor1, vetor2, vetor3);
 
 		t_ini = clock();
@@ -85,6 +87,7 @@ int main ()
 		quickSort(vetor3, __MAXSIZEORD);
 		t_fim = clock();
 		results.r_sort[i][2] = (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
+
 		
 	}
 
@@ -93,3 +96,4 @@ int main ()
 	return 0;
 
 }
+

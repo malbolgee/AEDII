@@ -6,6 +6,8 @@
 #define __SORT 3
 #define __NUMBER__TEST 30
 #define __RAND__KEY ((rand() % (__MAXSIZE) << 2) + 1)
+#define KGRN  "\x1B[32m"
+
 
 typedef struct __results{
 
@@ -15,4 +17,5 @@ typedef struct __results{
 } r_results;
 
 extern r_results results;
+void progress__bar(const int __count, const int __max);
 void result(r_results *, int __execution__type);

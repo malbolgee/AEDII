@@ -1,5 +1,7 @@
 #include "test.h"
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 void result(r_results *__table, int __execution__type)
 {
@@ -76,4 +78,22 @@ void result(r_results *__table, int __execution__type)
 		
 	}
 
+}
+
+void progress__bar(const int __count, const int __max)
+{
+
+	int i;
+	char prefix[] = "[";
+	int prefix_length = sizeof(prefix) - 1;
+	char *buffer = calloc(__max + 1, 1);
+	
+	strcpy(buffer, prefix);
+	for (i = 0; i < __max; ++i)
+		buffer[prefix_length + i] = i < __count ? '#' : ' ';
+ 
+	printf("\r%s%c[2KProgresso das Ordenações: %s%.2f%%]", KGRN, 27, buffer, 100.0f * __count / __max);
+	fflush(stdout);
+	free(buffer);
+	
 }
