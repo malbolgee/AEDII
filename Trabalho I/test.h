@@ -7,6 +7,7 @@
 #define __NUMBER__TEST 30
 #define __RAND__KEY ((rand() % (__MAXSIZE) << 2) + 1)
 #define KGRN  "\x1B[32m"
+#define KWHT  "\x1B[37m"
 
 
 typedef struct __results{

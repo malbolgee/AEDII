@@ -67,10 +67,10 @@ int main ()
 	int *vetor2 = array(__MAXSIZEORD);
 	int *vetor3 = array(__MAXSIZEORD);
 
+	progress__bar(1, __NUMBER__TEST);
 	for (i = 1; i <= __NUMBER__TEST; ++i)
 	{
-
-		progress__bar(i, __NUMBER__TEST);
+		
 		array__fill__random(4, __MAXSIZEORD, vetor1, vetor2, vetor3);
 
 		t_ini = clock();
@@ -88,9 +88,11 @@ int main ()
 		t_fim = clock();
 		results.r_sort[i][2] = (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
 
+		progress__bar(i, __NUMBER__TEST);
 		
 	}
 
+	printf("%s\n\n", KWHT);
 	result(&results, __SORT);
 
 	return 0;
