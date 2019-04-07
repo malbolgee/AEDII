@@ -169,27 +169,25 @@ void quickSort_v(int *__array, int __ini, int __fim)
 
 }
 
-void array__fill__random(int argc, ...)
+void array__fill__random(const int __size, const int __argc,...)
 {
 
 	int i, j;
+	int *a[__argc];
 	va_list valist;
 
-	va_start(valist, argc);
-	int *a[argc];
-	int _size = va_arg(valist, int);
+	va_start(valist, __argc);
 
-	argc--;
-	for (i = 0; i < argc; ++i)
+	for (i = 0; i < __argc; ++i)
 		a[i] = va_arg(valist, int *);
 
-	for (i = 0; i < _size; ++i)
+	for (i = 0; i < __size; ++i)
 		a[0][i] = __ARRAY__RANDOM__ELEMENT;
 
-	for (i = 1; i < argc; ++i)
-		for (j = 0; j < _size; ++j)
+	for (i = 1; i < __argc; ++i)
+		for (j = 0; j < __size; ++j)
 			a[i][j] = a[i - 1][j];
 	
 	va_end(valist);
-	
+
 }

@@ -84,7 +84,7 @@ int main ()
 	for (i = 1; i <= 30; ++i)
 	{
 		
-		array__fill__random(4, __MAXSIZEORD, vetor1, vetor2, vetor3);
+		array__fill__random(__MAXSIZEORD, 3, vetor1, vetor2, vetor3);
 
 		t_ini = clock();
 		bubbleSort(vetor1, __MAXSIZEORD);
@@ -105,8 +105,7 @@ int main ()
 		
 	}
 
-	printf("%c[2K", 27);
-	printf("%s\n", NOC);
+	printf("\r%c[2K%s", 27, NOC);
 	puts("===============================================================");
 	printf("Média BubbleSort\tMédia InsertionSort\tMédia QuickSort\n");
 	printf("    %lf\t\t     %lf\t\t    %lf\n", soma1 / 30, soma2 / 30, soma3 / 30);
