@@ -15,5 +15,6 @@ void insertionSort(int *__array, const int __size);
 void array__print(const int *__array, const int __size);
 void array__fill__ordered(int *__array, const int __size);
 void quickSort_v(int *__array, int __ini, int __fim);
+void print__array__to__idx(const int *__array, const int __idx);
 bool binary__search(const int *__array, int __size, const int __key);
 bool array__linear__search(const int *__array, const int __size, const int __key);

@@ -37,6 +37,8 @@ void array__to__list(l_list *__l1, const int *__array, const int __array__size)
 	for (i = 0; i < __array__size; ++i)
 		push(__l1, __array[i]);
 
+	printf("%d\n", i);
+
 }
 
 
@@ -108,7 +110,7 @@ void print__list__to__idx(const l_list *__l1, int __idx)
 	while (i < __idx && auxiliar)
 	{
 
-		printf("%d\n", auxiliar->dado);
+		printf("%d ", auxiliar->dado);
 		++i, auxiliar = auxiliar->proximo;
 
 	}

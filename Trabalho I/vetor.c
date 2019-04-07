@@ -63,6 +63,15 @@ void array__print(const int *__array, const int __size)
 
 }
 
+void print__array__to__idx(const int *__array, const int __idx)
+{
+
+	int i;
+	for (i = 0; i < __idx; ++i)
+		printf("%d ", __array[i]);
+
+}
+
 void array__fill__ordered(int *__array, const int __size)
 {
 
@@ -97,7 +106,7 @@ void insertionSort(int *__array, const int __size)
 void bubbleSort(int *__array, int __size)
 {
 
-	int i, j;
+	int i;
 	while (__size--)
 	{
 
@@ -159,7 +168,6 @@ void quickSort_v(int *__array, int __ini, int __fim)
 	}
 
 }
-
 
 void array__fill__random(int argc, ...)
 {
