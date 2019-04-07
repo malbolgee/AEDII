@@ -37,8 +37,6 @@ void array__to__list(l_list *__l1, const int *__array, const int __array__size)
 	for (i = 0; i < __array__size; ++i)
 		push(__l1, __array[i]);
 
-	printf("%d\n", i);
-
 }
 
 
