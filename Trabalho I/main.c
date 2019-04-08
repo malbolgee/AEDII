@@ -5,8 +5,11 @@
 #include "vetor.h"
 #include "list.h"
 
+#define __TEST_COUNT 30
 #define GRN  "\x1B[32m"
 #define NOC "\033[0m"
+
+
 
 void progress__bar(const int __count, const int __max);
 
@@ -23,7 +26,7 @@ int main ()
 	array__fill__ordered(vetor, __MAXSIZE);
 
 	srand(time(NULL));
-	for (i = 0; i < 30; ++i)
+	for (i = 0; i < __TEST_COUNT; ++i)
 	{
 		
 		int key = (rand() % (__MAXSIZE) << 2) + 1;
@@ -50,7 +53,7 @@ int main ()
 	array__to__list(&lista, vetor, __MAXSIZE);
 
 	soma1 = soma2 = 0;
-	for (i = 0; i < 30; ++i)
+	for (i = 0; i < __TEST_COUNT; ++i)
 	{
 
 		int key = (rand() % (__MAXSIZE) << 2) + 1;
@@ -79,9 +82,9 @@ int main ()
 	int *vetor2 = array(__MAXSIZEORD);
 	int *vetor3 = array(__MAXSIZEORD);
 
-	progress__bar(0, 30);
+	progress__bar(0, __TEST_COUNT);
 	soma1 = soma2 = soma3 = 0;
-	for (i = 1; i <= 30; ++i)
+	for (i = 1; i <= __TEST_COUNT; ++i)
 	{
 		
 		array__fill__random(__MAXSIZEORD, 3, vetor1, vetor2, vetor3);
@@ -101,16 +104,17 @@ int main ()
 		t_fim = clock();
 		soma3 += (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
 
-		progress__bar(i, 30);
+		progress__bar(i, __TEST_COUNT);
 		
 	}
 
 	printf("\r%c[2K%s", 27, NOC);
 	puts("===============================================================");
 	printf("Média BubbleSort\tMédia InsertionSort\tMédia QuickSort\n");
-	printf("    %lf\t\t     %lf\t\t    %lf\n", soma1 / 30, soma2 / 30, soma3 / 30);
+	printf("    %lf\t\t     %lf\t\t    %lf\n", soma1 / __TEST_COUNT, soma2 / __TEST_COUNT, soma3 / __TEST_COUNT);
 	puts("===============================================================");
-	printf("O QuickSort foi x%d mais rápido do que o Bubble e x%d mais rápido do que o Insertion\n", (int)((soma1 / 30) / (soma3 / 30)), (int)((soma2 / 30) / (soma3 / 30)));
+	printf("O QuickSort foi x%d mais rápido do que o Bubble e x%d mais rápido do que o Insertion\n", (int)((soma1 / __TEST_COUNT) / (soma3 / __TEST_COUNT)), 
+																									(int)((soma2 / __TEST_COUNT) / (soma3 / __TEST_COUNT)));
 
 	return 0;
 
