@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-b_tree * binary__tree()
+b_tree * make__binary__tree()
 {
 
 	return NULL;
@@ -179,7 +179,7 @@ int binary__tree__height(const b_tree *__root)
 
 	int lefth, righth;
 	if (!__root)
-		return -1;
+		return 0;
 
 	lefth = binary__tree__height(__root->left);
 	righth = binary__tree__height(__root->right);
