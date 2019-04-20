@@ -9,7 +9,7 @@ typedef struct __binary__tree__node{
 
 } b_tree;
 
-b_tree * binary__tree();
+b_tree * make__binary__tree();
 int binary__tree__height(const b_tree *__root);
 void binary_tree_pop(b_tree *, const int __key);
 void binary__tree__infix(const b_tree *);
