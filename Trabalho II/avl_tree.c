@@ -124,7 +124,7 @@ int __subtree__height(const avl_tree *__root)
 	else
 		righth = __root->right->balancing_factor + 1;
 
-	return MAX(righth, lefth);
+	return __MAX(righth, lefth);
 
 }
 
@@ -195,15 +195,15 @@ int __balancing__factor(const avl_tree *__root)
 	if (!__root)
 		return 0;
 
-	if (!__root->left)
-		lefth = 0;
-	else
+	if (__root->left)
 		lefth = __root->left->balancing_factor + 1;
-
-	if (!__root->right)
-		righth = 0;
 	else
+		lefth = 0;
+
+	if (__root->right)
 		righth = __root->right->balancing_factor + 1;
+	else
+		righth = 0;
 
 	return lefth - righth;
 
@@ -262,5 +262,36 @@ int avl__tree__height(const avl_tree *__root)
 	righth = avl__tree__height(__root->right);
 
 	return (lefth > righth ? lefth : righth) + 1;
+
+}
+
+avl_tree * avl__tree__search(avl_tree *__root, const int __key)
+{
+
+	if (!__root)
+		return NULL;
+
+	if (__root->id < __key)
+		avl__tree__search(__root->right, __key);
+	else if (__root->id > __key)
+		avl__tree__search(__root->left, __key);
+	else
+		return __root;
+
+}
+
+avl_tree * avl__tree__erase(avl_tree *__root)
+{
+
+	if (!__root)
+	{
+
+		avl__tree__erase(__root->left);
+		avl__tree__erase(__root->right);
+		free(__root);
+
+	}
+
+	return NULL;
 
 }
