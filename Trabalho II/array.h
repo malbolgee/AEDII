@@ -6,7 +6,7 @@
 #define __ARRAY__RANDOM__ELEMENT(x) ((rand() % (x << 2) + 1))
 #define __ARRAY__UNBIASED__RANDOM__ELEMENT(x) (uniformily__rand(x))
 
-int* array(const int __size);
+int * array(const int __size);
 void free__array(int *__array);
 void quickSort(int *__array, int __size);
 void quickSort_v(int *__array, int __ini, int __fim);
