@@ -10,7 +10,7 @@ typedef struct __avl__tree__node{
 
 } avl_tree;
 
-#define MAX(a, b) a > b ? a : b
+#define __MAX(a, b) a > b ? a : b
 
 avl_tree * make__avl__tree();
 int __avl__height(const avl_tree *__root);
@@ -27,4 +27,6 @@ void avl__tree__infix(const avl_tree *__root);
 void avl__tree__posfix(const avl_tree *__root);
 void avl__tree__prefix(const avl_tree *__root);
 int avl__tree__height(const avl_tree *__root);
+avl_tree * avl__tree__search(avl_tree *__root, const int __key);
 avl_tree * avl__tree__pop(avl_tree *__root, const int __key);
+avl_tree * avl__tree__erase(avl_tree *_root);
