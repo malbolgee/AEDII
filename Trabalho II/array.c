@@ -22,7 +22,7 @@ void free__array(int *__array)
 bool array__linear__search(const int *__array, const int __size, const int __key)
 {
 
-	int i;
+	unsigned i;
 	for (i = 0; i < __size; ++i)
 		if (__array[i] == __key)
 			return true;
