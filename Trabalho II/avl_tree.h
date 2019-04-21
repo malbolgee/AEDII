@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #pragma once
 
 typedef struct __avl__tree__node{
@@ -10,7 +9,7 @@ typedef struct __avl__tree__node{
 
 } avl_tree;
 
-#define __MAX(a, b) a > b ? a : b
+#define __MAX(a, b) (a > b ? a : b)
 
 avl_tree * make__avl__tree();
 int __avl__height(const avl_tree *__root);
