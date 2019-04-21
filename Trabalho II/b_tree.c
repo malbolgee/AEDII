@@ -1,7 +1,6 @@
 #include "b_tree.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 b_tree * make__binary__tree()
 {
@@ -30,18 +29,18 @@ b_tree * binary__tree__push(b_tree *__root, const int __data)
 
 }
 
-bool binary__tree__search(const b_tree *__root, const int __key)
+b_tree * binary__tree__search(b_tree *__root, const int __key)
 {
 
 	if (!__root)
-		return false;
+		return NULL;
 	
 	if (__root->id < __key)
 		binary__tree__search(__root->right, __key);
 	else if (__root->id > __key)
 		binary__tree__search(__root->left, __key);
 	else
-		return true;
+		return __root;
 
 }
 
