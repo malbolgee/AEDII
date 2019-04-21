@@ -1,7 +1,6 @@
 #include "avl_tree.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 avl_tree * make__avl__tree()
 {
@@ -256,12 +255,12 @@ int avl__tree__height(const avl_tree *__root)
 
 	int lefth, righth;
 	if (!__root)
-		return 0;
+		return -1;
 
 	lefth = avl__tree__height(__root->left);
 	righth = avl__tree__height(__root->right);
 
-	return (lefth > righth ? lefth : righth) + 1;
+	return __MAX(lefth, righth) + 1;
 
 }
 
