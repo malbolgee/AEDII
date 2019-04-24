@@ -205,7 +205,7 @@ void unbiased__random__array__fill(int *__array, const int __size)
 	while (tmp > 0)
 	{
 
-		idx = __ARRAY__UNBIASED__RANDOM__ELEMENT(__size);
+		idx = __ARRAY__UNBIASED__RANDOM__ELEMENT(__size << 1);
 		if (!seen[idx])
 			__array[i++] = idx, --tmp, seen[idx] = true;
 
@@ -234,8 +234,83 @@ unsigned uniformily__rand(const unsigned n)
 
 		}
 
-		return k % n; 
+		return (k % n) + 1; 
 
 	}
+
+}
+
+void partially__ordered__array__fill(int *__array, const int __size)
+{
+
+	unsigned i;
+	bool *seen = (bool *) calloc(__size, sizeof(bool));
+
+	unsigned char limit = (95 * 100) / __size;
+	while (limit > 0)
+	{
+
+		unsigned idx = rand() % __size;
+		if (!seen[idx])
+			__array[idx] = idx + 800, seen[idx] = true, --limit;
+
+	}
+
+	free(seen);
+
+	for (i = 0; i < __size; ++i)
+		if (__array[i] == 0)
+			__array[i] = __array[i - 1];
+
+	seen = (bool *) calloc(__size, sizeof(bool));
+
+	limit = 10;
+
+	while (limit > 0)
+	{
+
+		unsigned idxO = rand() % __size;
+		unsigned idxD = rand() % __size;
+
+		while (idxD == idxO)
+			idxD = rand() % __size;
+
+		if (!seen[idxD] && !seen[idxO])
+		{
+
+
+			int aux = __array[idxD];
+			__array[idxD] = __array[idxO];
+			__array[idxO] = aux;
+			seen[idxD] = true; seen[idxO] = true;
+			--limit;
+
+		}
+
+	}
+
+	free(seen);
+
+}
+
+void array__no__repetition__fill(int *__array, const int __size)
+{
+
+	int tmp;
+	unsigned i, idx;
+	char *seen = (char *) calloc(__size, sizeof(char));
+
+	i = 0;
+	tmp = __size;
+	while (tmp > 0)
+	{
+
+		idx = (rand() % __size) + 1;
+		if (!seen[idx])
+			__array[i++] = idx, --tmp, seen[idx] = true;
+
+	}
+
+	free(seen);
 
 }
