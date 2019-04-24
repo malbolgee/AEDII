@@ -20,3 +20,5 @@ bool binary__search(const int *__array, int __size, const int __key);
 bool array__linear__search(const int *__array, const int __size, const int __key);
 void unbiased__random__array__fill(int *__array, const int __size);
 unsigned uniformily__rand(const unsigned n);
+void partially__ordered__array__fill(int *__array, const int __size);
+void array__no__repetition__fill(int *__array, const int __size);
