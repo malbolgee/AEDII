@@ -1,4 +1,4 @@
-// #include "bin_tree.h"
+#include "bin_tree.h"
 #include <stdio.h>
 #include <stdlib.h>
 
