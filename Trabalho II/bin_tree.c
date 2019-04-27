@@ -1,22 +1,21 @@
-#include "b_tree.h"
+#include "bin_tree.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
-b_tree * binary__tree()
+bin_tree * make__binary__tree()
 {
 
 	return NULL;
 
 }
 
-b_tree * binary__tree__push(b_tree *__root, const int __data)
+bin_tree * binary__tree__push(bin_tree *__root, const int __data)
 {
 
 	if (!__root)
 	{
 
-		__root = (b_tree *) malloc(sizeof(b_tree));
+		__root = (bin_tree *) malloc(sizeof(bin_tree));
 		__root->id = __data;
 		__root->left = __root->right = NULL;
 
@@ -30,22 +29,22 @@ b_tree * binary__tree__push(b_tree *__root, const int __data)
 
 }
 
-bool binary__tree__search(const b_tree *__root, const int __key)
+bin_tree * binary__tree__search(bin_tree *__root, const int __key)
 {
 
 	if (!__root)
-		return false;
+		return NULL;
 	
 	if (__root->id < __key)
 		binary__tree__search(__root->right, __key);
 	else if (__root->id > __key)
 		binary__tree__search(__root->left, __key);
 	else
-		return true;
+		return __root;
 
 }
 
-b_tree * array__to__binary__tree(b_tree *__root, const int *__array, const unsigned __size)
+bin_tree * array__to__binary__tree(bin_tree *__root, const int *__array, const unsigned __size)
 {
 
 	unsigned i;
@@ -56,7 +55,7 @@ b_tree * array__to__binary__tree(b_tree *__root, const int *__array, const unsig
 
 }
 
-void binary__tree__infix(const b_tree *__root)
+void binary__tree__infix(const bin_tree *__root)
 {
 
 	if (__root)
@@ -70,7 +69,7 @@ void binary__tree__infix(const b_tree *__root)
 
 }
 
-void binary__tree__posfix(const b_tree *__root)
+void binary__tree__posfix(const bin_tree *__root)
 {
 
 	if (__root)
@@ -84,7 +83,7 @@ void binary__tree__posfix(const b_tree *__root)
 
 }
 
-void binary__tree__prefix(const b_tree *__root)
+void binary__tree__prefix(const bin_tree *__root)
 {
 
 	if (__root)
@@ -98,7 +97,7 @@ void binary__tree__prefix(const b_tree *__root)
 
 }
 
-b_tree * __find__max__value__node(b_tree *__root)
+bin_tree * __find__max__value__node(bin_tree *__root)
 {
 
 	if (!__root)
@@ -110,7 +109,7 @@ b_tree * __find__max__value__node(b_tree *__root)
 
 }
 
-b_tree * __find__min__value__node(b_tree *__root)
+bin_tree * __find__min__value__node(bin_tree *__root)
 {
 
 	if (!__root)
@@ -122,10 +121,10 @@ b_tree * __find__min__value__node(b_tree *__root)
 
 }
 
-b_tree * binary__tree__pop(b_tree *__root, const int __key)
+bin_tree * binary__tree__pop(bin_tree *__root, const int __key)
 {
 
-	b_tree *tmp;
+	bin_tree *tmp;
 
 	if (!__root)
 		return NULL;
@@ -158,28 +157,24 @@ b_tree * binary__tree__pop(b_tree *__root, const int __key)
 
 }
 
-b_tree * binary__tree__erase(b_tree *__root)
+bin_tree * binary__tree__erase(bin_tree *__root)
 {
 
 	if (!__root)
-	{
+		return NULL;
 
-		binary__tree__erase(__root->left);
-		binary__tree__erase(__root->right);
-		free(__root);
-
-	}
-
-	return NULL;
+	binary__tree__erase(__root->left);
+	binary__tree__erase(__root->right);
+	free(__root);
 
 }
 
-int binary__tree__height(const b_tree *__root)
+int binary__tree__height(const bin_tree *__root)
 {
 
 	int lefth, righth;
 	if (!__root)
-		return -1;
+		return 0;
 
 	lefth = binary__tree__height(__root->left);
 	righth = binary__tree__height(__root->right);
