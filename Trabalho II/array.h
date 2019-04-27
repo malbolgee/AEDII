@@ -16,7 +16,7 @@ void array__print(const int *__array, const int __size);
 void array__fill__ordered(int *__array, const int __size);
 void print__array__to__idx(const int *__array, const int __idx);
 void array__fill__random(const unsigned __size, const unsigned __argc, ...);
-bool binary__search(const int *__array, int __size, const int __key);
+bool binary__search(const int *__array, const int __size, const int __key);
 bool array__linear__search(const int *__array, const int __size, const int __key);
 void unbiased__random__array__fill(int *__array, const int __size);
 unsigned uniformily__rand(const unsigned n);
