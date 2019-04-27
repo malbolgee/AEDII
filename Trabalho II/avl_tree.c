@@ -294,3 +294,14 @@ avl_tree * avl__tree__erase(avl_tree *__root)
 	return NULL;
 
 }
+
+avl_tree * array__to__avl__tree(avl_tree *__root, const int *__array, const unsigned __size)
+{
+
+	unsigned i;
+	for (i = 0; i < __size; ++i)
+		__root = avl__tree__push(__root, __array[i]);
+
+	return __root;
+
+}

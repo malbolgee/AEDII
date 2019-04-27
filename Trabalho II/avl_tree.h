@@ -28,4 +28,5 @@ void avl__tree__prefix(const avl_tree *__root);
 int avl__tree__height(const avl_tree *__root);
 avl_tree * avl__tree__search(avl_tree *__root, const int __key);
 avl_tree * avl__tree__pop(avl_tree *__root, const int __key);
-avl_tree * avl__tree__erase(avl_tree *_root);
+avl_tree * avl__tree__erase(avl_tree *__root);
+avl_tree * array__to__avl__tree(avl_tree *__root, const int *__array, const unsigned __size);
