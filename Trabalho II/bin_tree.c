@@ -161,15 +161,11 @@ bin_tree * binary__tree__erase(bin_tree *__root)
 {
 
 	if (!__root)
-	{
+		return NULL;
 
-		binary__tree__erase(__root->left);
-		binary__tree__erase(__root->right);
-		free(__root);
-
-	}
-
-	return NULL;
+	binary__tree__erase(__root->left);
+	binary__tree__erase(__root->right);
+	free(__root);
 
 }
 
