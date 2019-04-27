@@ -46,17 +46,16 @@ int main ()
 	
 
 	// Liberação do vetor e da árvore;
-	arvore_binaria = binary__tree__erase(arvore_binaria);
 	free__array(vet);
+	arvore_binaria = binary__tree__erase(arvore_binaria);
 
 	// Simulação de pacotes de rede;
 
 	printf("%sSIMULAÇÃO DE RECEBIMENTO DE PACOTES DE REDES%s\n", RED, NOC);
 
 	// Criação do vetor e da árvore binária;
-
-	arvore_binaria = make__binary__tree();
 	vet = array(100);
+	arvore_binaria = make__binary__tree();
 
 	// Preenchimento da árvore e do vetor;
 	partially__ordered__array__fill(vet, 100);
