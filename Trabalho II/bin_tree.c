@@ -31,17 +31,18 @@ bin_tree * binary__tree__push(bin_tree *__root, const int __data)
 
 bin_tree * binary__tree__search(bin_tree *__root, const int __key)
 {
-
+	
 	if (!__root)
 		return NULL;
 	
 	if (__root->id < __key)
-		binary__tree__search(__root->right, __key);
+		return binary__tree__search(__root->right, __key);
 	else if (__root->id > __key)
-		binary__tree__search(__root->left, __key);
+		return binary__tree__search(__root->left, __key);
 	else
 		return __root;
-
+	
+	
 }
 
 bin_tree * array__to__binary__tree(bin_tree *__root, const int *__array, const unsigned __size)
@@ -106,7 +107,6 @@ bin_tree * __find__max__value__node(bin_tree *__root)
 		return __root;
 	else
 		return __find__max__value__node(__root->right);
-
 }
 
 bin_tree * __find__min__value__node(bin_tree *__root)
