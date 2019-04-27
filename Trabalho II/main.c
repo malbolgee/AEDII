@@ -12,7 +12,7 @@
 
 char *string[10] = { "Primeira", "Segunda", "Terceira", "Quarta", "Quinta", "Sexta", "Sétima", "Oitava", "Nona", "Décima" };
 
-#define __TEST_COUNT 1000000
+#define __TEST_COUNT 30
 #define LOG printf("\n\n")
 
 int main ()
@@ -34,6 +34,8 @@ int main ()
 	arvore_binaria = array__to__binary__tree(arvore_binaria, vet, 50);
 
 	// Percursos em árvore;
+
+	printf("%sPERCURSOS EM ÁRVORE BINÁRIA%s\n", RED, NOC);
 
 	printf("%sPercurso Pré-fixado%s:\n", GRN, NOC);
 	binary__tree__prefix(arvore_binaria);
@@ -114,6 +116,11 @@ int main ()
 	free__array(vet);
 	arvore_binaria = binary__tree__erase(arvore_binaria);
 
+	// Resultados das buscas;
+
+	puts("===============================================================");
+	printf("Soma Busca Binária\t\tSoma Na Árvore Binaria\n");
+	printf("      %lf\t\t\t       %lf\n", soma1, soma2);
 	puts("===============================================================");
 	printf("Média Busca Binária\t\tMédia Na Árvore Binaria\n");
 	printf("      %lf\t\t\t       %lf\n", soma1 / i, soma2 / i);
@@ -149,7 +156,7 @@ int main ()
 		soma2 += (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
 
 		printf("Altura da AVL na %s iteração: %d\n", string[i], avl__tree__height(arvore_avl));
-		printf("Altura da Árvore Binária na %s iteração: %d\n\n", string[i], binary__tree__height(arvore_binaria));
+		printf("Altura da ABP na %s iteração: %d\n\n", string[i], binary__tree__height(arvore_binaria));
 
 		// Liberação das árvores após cada iteração;
 		arvore_avl = avl__tree__erase(arvore_avl);
@@ -159,7 +166,7 @@ int main ()
 
 	printf("===============================================================\n");
 	printf("Média Inserção Binária\t\t   Média Inserção AVL\n");
-	printf("      %lf\t\t\t       %lf\n", soma2 / 30, soma1 / 30);
+	printf("      %lf\t\t\t       %lf\n", soma2 / i, soma1 / i);
 	printf("===============================================================\n\n");
 
 	// Liberação do vetor;
@@ -199,6 +206,9 @@ int main ()
 
 	}
 
+	puts("===============================================================");
+	printf("         Soma ABP\t\t              Soma AVL\n");
+	printf("         %lf\t\t\t      %lf\n", soma1, soma2);
 	puts("===============================================================");
 	printf("Média Busca Árvore Binária\t\tMédia Na Árvore AVL\n");
 	printf("         %lf\t\t\t      %lf\n", soma1 / i, soma2 / i);
