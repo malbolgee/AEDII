@@ -107,6 +107,7 @@ bin_tree * __find__max__value__node(bin_tree *__root)
 		return __root;
 	else
 		return __find__max__value__node(__root->right);
+
 }
 
 bin_tree * __find__min__value__node(bin_tree *__root)
@@ -174,7 +175,7 @@ int binary__tree__height(const bin_tree *__root)
 
 	int lefth, righth;
 	if (!__root)
-		return 0;
+		return -1;
 
 	lefth = binary__tree__height(__root->left);
 	righth = binary__tree__height(__root->right);
