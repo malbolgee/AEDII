@@ -271,9 +271,9 @@ avl_tree * avl__tree__search(avl_tree *__root, const int __key)
 		return NULL;
 
 	if (__root->id < __key)
-		avl__tree__search(__root->right, __key);
+		return avl__tree__search(__root->right, __key);
 	else if (__root->id > __key)
-		avl__tree__search(__root->left, __key);
+		return avl__tree__search(__root->left, __key);
 	else
 		return __root;
 
