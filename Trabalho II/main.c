@@ -35,6 +35,7 @@ int main ()
 	// Preenchimento do vetor e da árvore;
 
 	array__no__repetition__fill(vet, 50);
+	
 	arvore_binaria = make__binary__tree();
 	arvore_binaria = array__to__binary__tree(arvore_binaria, vet, 50);
 
@@ -216,6 +217,9 @@ int main ()
 		soma2[i] += (double)((t_fim - t_ini) * 1000.0) / CLOCKS_PER_SEC;
 
 	}
+
+	arvore_avl = avl__tree__erase(arvore_avl);
+	arvore_binaria = binary__tree__erase(arvore_binaria);
 
 	puts("===============================================================");
 	printf("Mediana Busca APB\t\t\tMediana Busca AVL\n");
