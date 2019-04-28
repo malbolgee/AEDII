@@ -15,13 +15,18 @@ char *string[10] = { "Primeira", "Segunda", "Terceira", "Quarta", "Quinta", "Sex
 #define __TEST_COUNT 30
 #define LOG printf("\n\n")
 
+int compare(const void *a, const void *b);
+double median(const double *__array, const unsigned __size);
+double average(const double *__array, const unsigned __size);
+
+
 int main ()
 {
 
 	unsigned i;
 	srand(time(NULL));
-	double soma1, soma2;
 	clock_t t_ini, t_fim;
+	double soma1[30], soma2[30];
 
 	int *vet = array(50);
 	avl_tree *arvore_avl;
@@ -29,8 +34,8 @@ int main ()
 
 	// Preenchimento do vetor e da árvore;
 
-	arvore_binaria = make__binary__tree();
 	array__no__repetition__fill(vet, 50);
+	arvore_binaria = make__binary__tree();
 	arvore_binaria = array__to__binary__tree(arvore_binaria, vet, 50);
 
 	// Percursos em árvore;
@@ -93,7 +98,8 @@ int main ()
 
 	printf("%sBUSCAS NO VETOR E NA ÁRVORE BINÁRIA%s\n", RED, NOC);
 
-	soma1 = soma2 = 0;
+	memset(soma1, 0, sizeof(soma1));
+	memset(soma2, 0, sizeof(soma2));
 	for (i = 0; i < __TEST_COUNT; ++i)
 	{
 
@@ -102,12 +108,12 @@ int main ()
 		t_ini = clock();
 		binary__search(vet, __MAXSIZE, key);
 		t_fim = clock();
-		soma1 += (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
+		soma1[i] += (double)((t_fim - t_ini) * 1000.0) / CLOCKS_PER_SEC;
 
 		t_ini = clock();
 		binary__tree__search(arvore_binaria, key);
 		t_fim = clock();
-		soma2 += (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
+		soma2[i] += (double)((t_fim - t_ini) * 1000.0) / CLOCKS_PER_SEC;
 
 	}
 
@@ -118,19 +124,21 @@ int main ()
 	// Resultados das buscas;
 
 	puts("===============================================================");
-	printf("Soma Busca Binária\t\tSoma Na Árvore Binaria\n");
-	printf("      %lf\t\t\t       %lf\n", soma1, soma2);
+	printf("Mediana Busca Binária\t\tMediana Árvore Binaria\n");
+	printf("      %lf\t\t\t       %lf\n", median(soma1, __TEST_COUNT), median(soma2, __TEST_COUNT));
 	puts("===============================================================");
 	printf("Média Busca Binária\t\tMédia Na Árvore Binaria\n");
-	printf("      %lf\t\t\t       %lf\n", soma1 / i, soma2 / i);
+	printf("      %lf\t\t\t       %lf\n", average(soma1, __TEST_COUNT), average(soma2, __TEST_COUNT));
 	puts("===============================================================\n");
 
 	printf("%sTESTES DE INSERÇÃO%s\n", RED, NOC);
 	
-	soma1 = soma2 = 0;
 
 	// Criação do vetor;
 	vet = array(__MAXSIZE);
+
+	memset(soma1, 0, sizeof(soma1));
+	memset(soma2, 0, sizeof(soma2));
 
 	for (i = 0; i < 10; ++i)
 	{
@@ -146,13 +154,13 @@ int main ()
 		for (int j = 0; j < __MAXSIZE; ++j)
 			arvore_avl = avl__tree__push(arvore_avl, vet[j]);
 		t_fim = clock();
-		soma1 += (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
+		soma2[i] += (double)((t_fim - t_ini) * 1000.0) / CLOCKS_PER_SEC;
 
 		t_ini = clock();
 		for (int j = 0; j < __MAXSIZE; ++j)
 			arvore_binaria = binary__tree__push(arvore_binaria, vet[j]);
 		t_fim = clock();
-		soma2 += (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
+		soma1[i] += (double)((t_fim - t_ini) * 1000.0) / CLOCKS_PER_SEC;
 
 		printf("Altura da AVL na %s iteração: %d\n", string[i], avl__tree__height(arvore_avl));
 		printf("Altura da ABP na %s iteração: %d\n\n", string[i], binary__tree__height(arvore_binaria));
@@ -161,11 +169,14 @@ int main ()
 		arvore_avl = avl__tree__erase(arvore_avl);
 		arvore_binaria = binary__tree__erase(arvore_binaria);
 	
-	}
+	}	
 
+	puts("===============================================================");
+	printf(" Mediana Inserção ABP\t\t   Mediana Inserção AVL\n");
+	printf("      %lf\t\t     \t%lf\n", median(soma1,10), median(soma2, 10));
 	printf("===============================================================\n");
 	printf("Média Inserção Binária\t\t   Média Inserção AVL\n");
-	printf("      %lf\t\t\t       %lf\n", soma2 / i, soma1 / i);
+	printf("      %lf\t\t     \t%lf\n", average(soma1, 10), average(soma2, 10));
 	printf("===============================================================\n\n");
 
 	// Liberação do vetor;
@@ -186,7 +197,8 @@ int main ()
 
 	printf("%sBUSCAS NA ÁRVORE BINÁRIA E NA ÁRVORE AVL%s\n", RED, NOC);
 
-	soma1 = soma2 = 0;
+	memset(soma1, 0, sizeof(soma1));
+	memset(soma2, 0, sizeof(soma2));
 	for (i = 0; i < __TEST_COUNT; ++i)
 	{
 
@@ -196,21 +208,60 @@ int main ()
 		t_ini = clock();
 		binary__tree__search(arvore_binaria, key);
 		t_fim = clock();
-		soma1 += (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
+		soma1[i] += (double)((t_fim - t_ini) * 1000.0) / CLOCKS_PER_SEC;
 
 		t_ini = clock();
 		avl__tree__search(arvore_avl, key);
 		t_fim = clock();
-		soma2 += (double)(t_fim - t_ini) / CLOCKS_PER_SEC;
+		soma2[i] += (double)((t_fim - t_ini) * 1000.0) / CLOCKS_PER_SEC;
 
 	}
 
 	puts("===============================================================");
-	printf("         Soma ABP\t\t              Soma AVL\n");
-	printf("         %lf\t\t\t      %lf\n", soma1, soma2);
+	printf("Mediana Busca APB\t\t\tMediana Busca AVL\n");
+	printf("    %lf\t\t\t\t   %lf\n", median(soma1, __TEST_COUNT), median(soma2, __TEST_COUNT));
 	puts("===============================================================");
-	printf("Média Busca Árvore Binária\t\tMédia Na Árvore AVL\n");
-	printf("         %lf\t\t\t      %lf\n", soma1 / i, soma2 / i);
+	printf("Média Busca ABP\t\t\t\tMédia Busca AVL\n");
+	printf("    %lf\t\t\t\t   %lf\n", average(soma1, __TEST_COUNT), average(soma2, __TEST_COUNT));
 	puts("===============================================================\n");
+
+}
+
+int compare(const void *a, const void *b)
+{
+
+	if (*(double *)a == *(double *)b)
+		return 0;
+	else if (*(double *)a > *(double *)b)
+		return 1;
+	else
+		return -1;
+
+}
+
+double average(const double *__array, const unsigned __size)
+{
+
+	unsigned i;
+	double sum = 0;
+
+	for (i = 0; i < __size; ++i)
+		sum += __array[i];
+
+	return sum / __size;
+
+}
+
+double median(const double *__array, const unsigned __size)
+{
+
+	double __tmp[__size];
+	memcpy(__tmp, __array, sizeof(double) * __size);
+	qsort(__tmp, __size, sizeof(double), compare);
+	
+	if (__size & 1)
+		return __tmp[__size / 2];
+	else
+		return (__tmp[(__size / 2) - 1] + __tmp[(__size / 2)]) / 2;
 
 }
