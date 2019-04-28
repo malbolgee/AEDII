@@ -15,8 +15,8 @@ bin_tree * array__to__binary__tree(bin_tree *__root, const int *__array, const u
 void binary__tree__infix(const bin_tree *);
 void binary__tree__posfix(const bin_tree *);
 void binary__tree__prefix(const bin_tree *);
-bin_tree * __find__max__value__node(bin_tree *__root);
-bin_tree * __find__min__value__node(bin_tree *__root);
+static bin_tree * __find__max__value__node(bin_tree *__root);
+static bin_tree * __find__min__value__node(bin_tree *__root);
 bin_tree * binary__tree__pop(bin_tree *__root, const int __key);
 bin_tree * binary__tree__erase(bin_tree *__root);
 int binary__tree__height(const bin_tree *__root);

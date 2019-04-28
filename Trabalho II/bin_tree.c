@@ -42,7 +42,6 @@ bin_tree * binary__tree__search(bin_tree *__root, const int __key)
 	else
 		return __root;
 	
-	
 }
 
 bin_tree * array__to__binary__tree(bin_tree *__root, const int *__array, const unsigned __size)
@@ -98,7 +97,7 @@ void binary__tree__prefix(const bin_tree *__root)
 
 }
 
-bin_tree * __find__max__value__node(bin_tree *__root)
+static bin_tree * __find__max__value__node(bin_tree *__root)
 {
 
 	if (!__root)
@@ -110,7 +109,7 @@ bin_tree * __find__max__value__node(bin_tree *__root)
 
 }
 
-bin_tree * __find__min__value__node(bin_tree *__root)
+static bin_tree * __find__min__value__node(bin_tree *__root)
 {
 
 	if (!__root)
