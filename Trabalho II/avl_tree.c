@@ -106,7 +106,7 @@ avl_tree * avl__tree__pop(avl_tree *__root, const int __key)
 }	
 
 
-int __subtree__height(const avl_tree *__root)
+static int __subtree__height(const avl_tree *__root)
 {
 
 	int lefth, righth;
@@ -127,7 +127,7 @@ int __subtree__height(const avl_tree *__root)
 
 }
 
-avl_tree * __avl__rotate__right(avl_tree *__node)
+static avl_tree * __avl__rotate__right(avl_tree *__node)
 {
 
 	avl_tree *aux;
@@ -140,7 +140,7 @@ avl_tree * __avl__rotate__right(avl_tree *__node)
 
 }
 
-avl_tree * __avl__rotate__left(avl_tree *__node)
+static avl_tree * __avl__rotate__left(avl_tree *__node)
 {
 
 	avl_tree *aux;
@@ -153,7 +153,7 @@ avl_tree * __avl__rotate__left(avl_tree *__node)
 
 }
 
-avl_tree * __RR(avl_tree *__node)
+static avl_tree * __RR(avl_tree *__node)
 {
 
 	__node = __avl__rotate__left(__node);
@@ -161,7 +161,7 @@ avl_tree * __RR(avl_tree *__node)
 
 }
 
-avl_tree * __LL(avl_tree *__node)
+static avl_tree * __LL(avl_tree *__node)
 {
 
 	__node = __avl__rotate__right(__node);
@@ -169,7 +169,7 @@ avl_tree * __LL(avl_tree *__node)
 
 }
 
-avl_tree * __LR(avl_tree *__node)
+static avl_tree * __LR(avl_tree *__node)
 {
 
 	__node->left = __avl__rotate__left(__node->left);
@@ -178,7 +178,7 @@ avl_tree * __LR(avl_tree *__node)
 
 }
 
-avl_tree * __RL(avl_tree *__node)
+static avl_tree * __RL(avl_tree *__node)
 {
 
 	__node->right = __avl__rotate__right(__node->right);
@@ -187,7 +187,7 @@ avl_tree * __RL(avl_tree *__node)
 
 }
 
-int __balancing__factor(const avl_tree *__root)
+static int __balancing__factor(const avl_tree *__root)
 {
 
 	int lefth, righth;
