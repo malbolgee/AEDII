@@ -5,7 +5,7 @@
 #include <time.h>
 #include <stdbool.h>
 
-int * array(const int __size)
+int * array(const unsigned __size)
 {
 
 	return (int *) malloc(sizeof(int) * __size);
@@ -19,19 +19,19 @@ void free__array(int *__array)
 
 }
 
-bool array__linear__search(const int *__array, const int __size, const int __key)
+int array__linear__search(const int *__array, const unsigned __size, const int __key)
 {
 
 	unsigned i;
 	for (i = 0; i < __size; ++i)
 		if (__array[i] == __key)
-			return true;
+			return i;
 
-	return false;
+	return -1;
 
 }
 
-bool binary__search(const int *__array, const int __size, const int __key)
+int binary__search(const int *__array, const unsigned __size, const int __key)
 {
 
 	int hi, low, mid;
@@ -41,48 +41,49 @@ bool binary__search(const int *__array, const int __size, const int __key)
 
 	while (low <= hi)
 	{
+		
 		mid = (low + hi) / 2;
-		if (__array[mid] < __key)
+		if (__array[mid] > __key)
 			hi = mid - 1;
-		else if (__array[mid] > __key)
+		else if (__array[mid] < __key)
 			low = mid + 1;
 		else
-			return true;
+			return mid + 1;
 
 	}
 
-	return false;
+	return -1;
 
 }
 
-void array__print(const int *__array, const int __size)
+void array__print(const int *__array, const unsigned __size)
 {
 
-	int i;
+	unsigned i;
 	for (i = 0; i < __size; ++i)
 		printf("%d ", __array[i]);
 
 }
 
-void print__array__to__idx(const int *__array, const int __idx)
+void print__array__to__idx(const int *__array, const unsigned __idx)
 {
 
-	int i;
+	unsigned i;
 	for (i = 0; i < __idx; ++i)
 		printf("%d ", __array[i]);
 
 }
 
-void array__fill__ordered(int *__array, const int __size)
+void array__fill__ordered(int *__array, const unsigned __size)
 {
 
-	int i, j;
+	unsigned i, j;
 	for (i = 0, j = 0; i < __size; ++i, j += (rand() % 499) + 1)
 		__array[i] = j;
 
 }
 
-void insertionSort(int *__array, const int __size)
+void insertionSort(int *__array, const unsigned __size)
 {
 
 	int i, j, pivot;
@@ -104,10 +105,10 @@ void insertionSort(int *__array, const int __size)
 
 }
 
-void bubbleSort(int *__array, int __size)
+void bubbleSort(int *__array, unsigned __size)
 {
 
-	int i;
+	unsigned i;
 	while (__size--)
 	{
 
@@ -125,14 +126,14 @@ void bubbleSort(int *__array, int __size)
 
 }
 
-void quickSort(int *__array, int __size)
+void quickSort(int *__array, const unsigned __size)
 {
 
 	quickSort_v(__array, 0, __size - 1);
 
 }
 
-void quickSort_v(int *__array, int __ini, int __fim)
+static void quickSort_v(int *__array, int __ini, int __fim)
 {
 
 	int i, j, pivot, tmp;
@@ -193,54 +194,7 @@ void array__fill__random(const unsigned __size, const unsigned __argc,...)
 
 }
 
-void unbiased__random__array__fill(int *__array, const int __size)
-{
-
-	int tmp;
-	unsigned i, idx;
-	char *seen = (char *) calloc(__size << 2, sizeof(char));
-
-	i = 0;
-	tmp = __size;
-	while (tmp > 0)
-	{
-
-		idx = __ARRAY__UNBIASED__RANDOM__ELEMENT(__size << 1);
-		if (!seen[idx])
-			__array[i++] = idx, --tmp, seen[idx] = true;
-
-	}
-
-	free(seen);
-
-}
-
-unsigned uniformily__rand(const unsigned n) 
-{
-
-	if (n == RAND_MAX + 1)
-		return rand(); 
-	else
-	{ 
-
-		int k; 
-		long limit = (RAND_MAX / n) * n; 
-		while (true)
-		{
-
-			k = rand();
-			if (k < limit) 
-				break;
-
-		}
-
-		return (k % n) + 1; 
-
-	}
-
-}
-
-void partially__ordered__array__fill(int *__array, const int __size)
+void partially__ordered__array__fill(int *__array, const unsigned __size)
 {
 
 	unsigned i;
@@ -278,7 +232,6 @@ void partially__ordered__array__fill(int *__array, const int __size)
 		if (!seen[idxD] && !seen[idxO])
 		{
 
-
 			int aux = __array[idxD];
 			__array[idxD] = __array[idxO];
 			__array[idxO] = aux;
@@ -293,10 +246,10 @@ void partially__ordered__array__fill(int *__array, const int __size)
 
 }
 
-void array__no__repetition__fill(int *__array, const int __size)
+void array__no__repetition__fill(int *__array, const unsigned __size)
 {
 
-	int tmp;
+	unsigned tmp;
 	unsigned i, idx;
 	char *seen = (char *) calloc(__size, sizeof(char));
 
