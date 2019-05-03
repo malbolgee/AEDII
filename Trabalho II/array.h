@@ -3,7 +3,6 @@
 #define __MAXSIZE 1000000
 #define __MAXSIZEORD 100000
 #define __ARRAY__RANDOM__ELEMENT(x) ((rand() % (x << 2) + 1))
-#define __ARRAY__UNBIASED__RANDOM__ELEMENT(x) (uniformily__rand(x))
 
 int * array(const unsigned __size);
 void free__array(int *__array);
