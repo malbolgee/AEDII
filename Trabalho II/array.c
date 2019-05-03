@@ -199,27 +199,27 @@ void partially__ordered__array__fill(int *__array, const unsigned __size)
 
 	unsigned i;
 	bool *seen = (bool *) calloc(__size, sizeof(bool));
-
-	unsigned char limit = (80 * 100) / __size;
+	unsigned char rep = (80 * 100) / __size;
+	unsigned char limit = __size;
 	while (limit > 0)
 	{
 
-		unsigned idx = rand() % __size;
+		unsigned idx = (rand() % __size);
 		if (!seen[idx])
 			__array[idx] = idx + 800, seen[idx] = true, --limit;
+		else if (seen[idx] && rep)
+		{	
+
+			unsigned char aux = idx;
+			while (__array[aux++]);
+			__array[aux] = idx + 800, --rep;
+
+		}
 
 	}
 
-	free(seen);
-
-	for (i = 0; i < __size; ++i)
-		if (__array[i] == 0)
-			__array[i] = __array[i - 1];
-
+	limit = 10;
 	seen = (bool *) calloc(__size, sizeof(bool));
-
-	limit = 20;
-
 	while (limit > 0)
 	{
 
