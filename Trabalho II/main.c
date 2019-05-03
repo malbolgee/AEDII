@@ -36,8 +36,8 @@ int main ()
 
 	array__no__repetition__fill(vet, 50);
 	
-	arvore_binaria = make__binary__tree();
-	arvore_binaria = array__to__binary__tree(arvore_binaria, vet, 50);
+	make__binary__tree(&arvore_binaria);
+	array__to__binary__tree(&arvore_binaria, vet, 50);
 
 	// Percursos em árvore;
 
@@ -61,11 +61,11 @@ int main ()
 
 	// Criação do vetor e da árvore binária;
 	vet = array(100);
-	arvore_binaria = make__binary__tree();
+	make__binary__tree(&arvore_binaria);
 
 	// Preenchimento da árvore e do vetor;
 	partially__ordered__array__fill(vet, 100);
-	arvore_binaria = array__to__binary__tree(arvore_binaria, vet, 100);
+	array__to__binary__tree(&arvore_binaria, vet, 100);
 
 	// Demonstração dos 'pacotes';
 
@@ -87,12 +87,12 @@ int main ()
 	// Criação do vetor e da árvore binária;
 
 	vet = array(__MAXSIZE);
-	arvore_binaria = make__binary__tree();
+	make__binary__tree(&arvore_binaria);
 
 	// Preenchimento do vetor e da árvore;
 
 	array__no__repetition__fill(vet, __MAXSIZE);
-	arvore_binaria = array__to__binary__tree(arvore_binaria, vet, __MAXSIZE);
+	array__to__binary__tree(&arvore_binaria, vet, __MAXSIZE);
 
 	// Vetor precisa estar ordenado para buscas binárias;
 	quickSort(vet, __MAXSIZE);
@@ -104,7 +104,7 @@ int main ()
 	for (i = 0; i < __TEST_COUNT; ++i)
 	{
 
-		int key = (rand() % (__MAXSIZE) << 2) + 1;
+		int key = (rand() % __MAXSIZE) + 1;
 
 		t_ini = clock();
 		binary__search(vet, __MAXSIZE, key);
@@ -148,8 +148,8 @@ int main ()
 		array__no__repetition__fill(vet, __MAXSIZE);
 
 		// Cada iteração, novas árvores precisam ser criadas;
-		arvore_avl = make__avl__tree();
-		arvore_binaria = make__binary__tree();
+		make__avl__tree(&arvore_avl);
+		make__binary__tree(&arvore_binaria);
 
 		t_ini = clock();
 		for (int j = 0; j < __MAXSIZE; ++j)
@@ -187,13 +187,13 @@ int main ()
 
 	// Criação do vetor, da árvore avl e da árvore binária;
 	vet = array(__MAXSIZE);
-	arvore_avl = make__avl__tree();
-	arvore_binaria = make__binary__tree();
+	make__avl__tree(&arvore_avl);
+	make__binary__tree(&arvore_binaria);
 
 	// Preenchimento do vetor e das árvores;
 
 	array__no__repetition__fill(vet, __MAXSIZE);
-	arvore_binaria = array__to__binary__tree(arvore_binaria, vet, __MAXSIZE);
+	array__to__binary__tree(&arvore_binaria, vet, __MAXSIZE);
 	arvore_avl = array__to__avl__tree(arvore_avl, vet, __MAXSIZE);
 
 	printf("%sBUSCAS NA ÁRVORE BINÁRIA E NA ÁRVORE AVL%s\n", RED, NOC);
@@ -204,7 +204,7 @@ int main ()
 	{
 
 		// Geração da chave de busca;
-		int key = (rand() % (__MAXSIZE) << 2) + 1;
+		int key = (rand() % __MAXSIZE) + 1;
 
 		t_ini = clock();
 		binary__tree__search(arvore_binaria, key);
@@ -228,6 +228,8 @@ int main ()
 	printf("Média Busca ABP\t\t\t\tMédia Busca AVL\n");
 	printf("    %lf\t\t\t\t   %lf\n", average(soma1, __TEST_COUNT), average(soma2, __TEST_COUNT));
 	puts("===============================================================\n");
+
+	scanf("%d", &i);
 
 }
 
