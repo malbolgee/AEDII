@@ -200,7 +200,7 @@ void partially__ordered__array__fill(int *__array, const unsigned __size)
 	unsigned i;
 	bool *seen = (bool *) calloc(__size, sizeof(bool));
 
-	unsigned char limit = (95 * 100) / __size;
+	unsigned char limit = (80 * 100) / __size;
 	while (limit > 0)
 	{
 
@@ -218,7 +218,7 @@ void partially__ordered__array__fill(int *__array, const unsigned __size)
 
 	seen = (bool *) calloc(__size, sizeof(bool));
 
-	limit = 10;
+	limit = 20;
 
 	while (limit > 0)
 	{
