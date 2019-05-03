@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-avl_tree * make__avl__tree()
+void make__avl__tree(avl_tree **__root)
 {
 
-	return NULL;
+	*__root =  NULL;
 
 }
 

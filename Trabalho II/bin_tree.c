@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-bin_tree * make__binary__tree()
+void make__binary__tree(bin_tree **__root)
 {
 
-	return NULL;
+	*__root =  NULL;
 
 }
 
@@ -44,14 +44,12 @@ bin_tree * binary__tree__search(bin_tree *__root, const int __key)
 	
 }
 
-bin_tree * array__to__binary__tree(bin_tree *__root, const int *__array, const unsigned __size)
+void array__to__binary__tree(bin_tree **__root, const int *__array, const unsigned __size)
 {
 
 	unsigned i;
 	for (i = 0; i < __size; ++i)
-		__root = binary__tree__push(__root, __array[i]);
-
-	return __root;
+		*__root = binary__tree__push(*__root, __array[i]);
 
 }
 

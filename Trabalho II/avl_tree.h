@@ -11,7 +11,7 @@ typedef struct __avl__tree__node{
 
 #define __MAX(a, b) (a > b ? a : b)
 
-avl_tree * make__avl__tree();
+void make__avl__tree(avl_tree **__root);
 avl_tree * avl__tree__push(avl_tree *, const int __data);
 static int __subtree__height(const avl_tree *__root);
 static avl_tree * __avl__rotate__right(avl_tree *__node);
