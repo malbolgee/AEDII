@@ -123,18 +123,16 @@ int main ()
 	arvore_binaria = binary__tree__erase(arvore_binaria);
 
 	// Resultados das buscas;
-
 	puts("===============================================================");
-	printf("Mediana Busca Binária\t\tMediana Árvore Binaria\n");
-	printf("      %lf\t\t\t       %lf\n", median(soma1, __TEST_COUNT), median(soma2, __TEST_COUNT));
+	printf("Média Busca em Vetor\t\tMédia Busca na ABP\n");
+	printf("      %lf ms\t\t     %lf ms\n", average(soma1, __TEST_COUNT), average(soma2, __TEST_COUNT));
 	puts("===============================================================");
-	printf("Média Busca Binária\t\tMédia Na Árvore Binaria\n");
-	printf("      %lf\t\t\t       %lf\n", average(soma1, __TEST_COUNT), average(soma2, __TEST_COUNT));
+	printf("Mediana Busca no Vetor\t\t  Mediana na ABP\n");
+	printf("      %lf ms\t\t     %lf ms\n", median(soma1, __TEST_COUNT), median(soma2, __TEST_COUNT));
 	puts("===============================================================\n");
 
 	printf("%sTESTES DE INSERÇÃO%s\n", RED, NOC);
 	
-
 	// Criação do vetor;
 	vet = array(__MAXSIZE);
 
@@ -173,12 +171,12 @@ int main ()
 	}	
 
 	puts("===============================================================");
-	printf(" Mediana Inserção ABP\t\t   Mediana Inserção AVL\n");
-	printf("      %lf\t\t     \t%lf\n", median(soma1,10), median(soma2, 10));
-	printf("===============================================================\n");
 	printf("Média Inserção Binária\t\t   Média Inserção AVL\n");
-	printf("      %lf\t\t     \t%lf\n", average(soma1, 10), average(soma2, 10));
-	printf("===============================================================\n\n");
+	printf("      %lf ms\t\t      %lf ms\n", average(soma1, 10), average(soma2, 10));
+	puts("===============================================================");
+	printf(" Mediana Inserção ABP\t\t   Mediana Inserção AVL\n");
+	printf("      %lf ms\t\t      %lf ms\n", median(soma1,10), median(soma2, 10));
+	puts("===============================================================\n");
 
 	// Liberação do vetor;
 	free__array(vet);
@@ -222,11 +220,11 @@ int main ()
 	arvore_binaria = binary__tree__erase(arvore_binaria);
 
 	puts("===============================================================");
-	printf("Mediana Busca APB\t\t\tMediana Busca AVL\n");
-	printf("    %lf\t\t\t\t   %lf\n", median(soma1, __TEST_COUNT), median(soma2, __TEST_COUNT));
-	puts("===============================================================");
 	printf("Média Busca ABP\t\t\t\tMédia Busca AVL\n");
-	printf("    %lf\t\t\t\t   %lf\n", average(soma1, __TEST_COUNT), average(soma2, __TEST_COUNT));
+	printf("    %lf ms\t\t\t\t   %lf ms\n", average(soma1, __TEST_COUNT), average(soma2, __TEST_COUNT));
+	puts("===============================================================");
+	printf("Mediana Busca APB\t\t\tMediana Busca AVL\n");
+	printf("    %lf ms\t\t\t\t   %lf ms\n", median(soma1, __TEST_COUNT), median(soma2, __TEST_COUNT));
 	puts("===============================================================\n");
 
 	scanf("%d", &i);
