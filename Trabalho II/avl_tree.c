@@ -26,7 +26,7 @@ avl_tree * avl__tree__push(avl_tree *__root, const int __data)
 		__root->right = avl__tree__push(__root->right, __data);
 		if (__balancing__factor(__root) == -2)
 			if(__root->right->id < __data)
-				__root = __RR(__root);
+				__root = __LL(__root);
 			else
 				__root = __RL(__root);
 
@@ -37,7 +37,7 @@ avl_tree * avl__tree__push(avl_tree *__root, const int __data)
 		__root->left = avl__tree__push(__root->left, __data);
 		if (__balancing__factor(__root) == 2)
 			if (__root->left->id > __data)
-				__root = __LL(__root);
+				__root = __RR(__root);
 			else
 				__root = __LR(__root);
 
@@ -61,7 +61,7 @@ avl_tree * avl__tree__pop(avl_tree *__root, const int __key)
 		__root->right = avl__tree__pop(__root->right, __key);
 		if (__balancing__factor(__root) == 2)
 			if (__balancing__factor(__root->left) >= 0)
-				__root = __LL(__root);
+				__root = __RR(__root);
 			else
 				__root = __LR(__root);
 
@@ -72,7 +72,7 @@ avl_tree * avl__tree__pop(avl_tree *__root, const int __key)
 		__root->left = avl__tree__pop(__root->left, __key);
 		if (__balancing__factor(__root) == -2)
 			if (__balancing__factor(__root->left) <= 0)
-				__root = __RR(__root);
+				__root = __LL(__root);
 			else
 				__root = __RL(__root);
 
@@ -90,7 +90,7 @@ avl_tree * avl__tree__pop(avl_tree *__root, const int __key)
 
 		if (__balancing__factor(__root) == 2)
 			if(__balancing__factor(__root->left) >= 0)
-				__root = __LL(__root);
+				__root = __RR(__root);
 			else
 				__root = __LR(__root);
 
@@ -153,7 +153,7 @@ static avl_tree * __avl__rotate__left(avl_tree *__node)
 
 }
 
-static avl_tree * __RR(avl_tree *__node)
+static avl_tree * __LL(avl_tree *__node)
 {
 
 	__node = __avl__rotate__left(__node);
@@ -161,7 +161,7 @@ static avl_tree * __RR(avl_tree *__node)
 
 }
 
-static avl_tree * __LL(avl_tree *__node)
+static avl_tree * __RR(avl_tree *__node)
 {
 
 	__node = __avl__rotate__right(__node);
