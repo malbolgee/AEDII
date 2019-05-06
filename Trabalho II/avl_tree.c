@@ -24,7 +24,7 @@ avl_tree * avl__tree__push(avl_tree *__root, const int __data)
 	{
 
 		__root->right = avl__tree__push(__root->right, __data);
-		if (__balancing__factor(__root) == -2)
+		if (__balancing__factor(__root) == 2)
 			if(__root->right->id < __data)
 				__root = __LL(__root);
 			else
@@ -35,7 +35,7 @@ avl_tree * avl__tree__push(avl_tree *__root, const int __data)
 	{
 
 		__root->left = avl__tree__push(__root->left, __data);
-		if (__balancing__factor(__root) == 2)
+		if (__balancing__factor(__root) == -2)
 			if (__root->left->id > __data)
 				__root = __RR(__root);
 			else
@@ -204,7 +204,7 @@ static int __balancing__factor(const avl_tree *__root)
 	else
 		righth = 0;
 
-	return lefth - righth;
+	return righth - lefth;
 
 }
 
