@@ -7,16 +7,17 @@ typedef struct __node__hash{
 	unsigned register_pointer;
 	struct __node__hash *next;
 
-} __node__hash;
+} element_t;
 
 typedef struct __hash__table{
 
-	__node__hash *first;
-	__node__hash *last;
+	element_t *first;
+	element_t *last;
 
 } hash_t;
 
 #define ROTL32(x, y) __rotl(x, y);
 
-void hash_push(hash_t *__hash, const unsigned __register_pointer, const int __data);
-void hash_search(hash_t *__hash, const int __data);
+hash_t * make__hash__table(const unsigned __size);
+void hash__push(hash_t *__hash, const unsigned __register_pointer, const char *__data);
+int hash__search(hash_t *__hash, const char *__data);
