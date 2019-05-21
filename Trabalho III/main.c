@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <time.h>
+#include "bin_tree.h"
 #include "hash.h"
 
 typedef struct __product__type{
@@ -19,6 +20,7 @@ typedef struct __product__type{
 product_t product_array[10000];
 
 void get_product_info();
+void info_print(product_t);
 
 void main ()
 {
@@ -29,6 +31,9 @@ void main ()
 	product_t produto;
 
 	hash_t *hash_produto;
+	bin_tree_t *arvore;
+	// Criação da Árvore e da tabela Hash;
+	make__binary__tree(&arvore);
 	hash_produto = make__hash__table(10177);
 	FILE *bin = fopen("produtos", "wb");
 	get_product_info();
@@ -39,6 +44,7 @@ void main ()
 		fwrite(&product_array[i], sizeof(product_t), 1, bin);
 		sprintf(id, "%d", product_array[i].id);
 		hash__push(hash_produto, i, id);
+		arvore = binary__tree__push(arvore, product_array[i].id, i);
 
 	}
 
@@ -56,11 +62,10 @@ void main ()
 
 		fseek(bin, idx * sizeof(product_t), SEEK_SET);
 		fread(&produto, sizeof(product_t), 1, bin);	
-		printf("Id: %d\nNome: %s\nDescrição: %s\nPreço: %.2f\nDisponibilidade: %d\nVencimento: %d\n\n",
-		produto.id, produto.nome, produto.descricao, produto.preco, produto.disponibilidade, produto.vencimento);
+		info_print(produto);
 
 	}
-	
+
 	scanf("%s", id);
 
 }
@@ -78,4 +83,12 @@ void get_product_info()
 
 	fclose(json);
 	
+}
+
+void info_print(product_t produto)
+{
+
+	printf("Id: %d\nNome: %s\nDescrição: %s\nPreço: %.2f\nDisponibilidade: %d\nVencimento: %d\n\n",
+		produto.id, produto.nome, produto.descricao, produto.preco, produto.disponibilidade, produto.vencimento);
+
 }
