@@ -6,21 +6,23 @@
 #include "bin_tree.h"
 #include "hash.h"
 
-typedef struct __product__type{
+#define MAXHASHSIZE 13759
 
-	unsigned id;
-	char nome[51];
-	char descricao[101];
-	float preco;
-	unsigned disponibilidade;
-	unsigned vencimento;
+// typedef struct __product__type{
 
-} product_t;
+// 	unsigned id;
+// 	char nome[51];
+// 	char descricao[101];
+// 	float preco;
+// 	unsigned disponibilidade;
+// 	unsigned vencimento;
+
+// } product_t;
 
 product_t product_array[10000];
 
 void get_product_info();
-void info_print(product_t);
+// void info_print(product_t);
 
 void main ()
 {
@@ -28,13 +30,12 @@ void main ()
 	int i;
 	char id[30];
 	srand(time(NULL));
-	product_t produto;
-
-	hash_t *hash_produto;
+	element_t *j;
 	bin_tree_t *arvore;
+	hash_t *hash_produto;
 	// Criação da Árvore e da tabela Hash;
 	make__binary__tree(&arvore);
-	hash_produto = make__hash__table(10177);
+	hash_produto = make__hash__table(MAXHASHSIZE);
 	FILE *bin = fopen("produtos", "wb");
 	get_product_info();
 
@@ -43,30 +44,46 @@ void main ()
 
 		fwrite(&product_array[i], sizeof(product_t), 1, bin);
 		sprintf(id, "%d", product_array[i].id);
-		hash__push(hash_produto, i, id);
+		hash__push(hash_produto, id, i);
 		arvore = binary__tree__push(arvore, product_array[i].id, i);
 
 	}
 
-	fclose(bin);
-	bin = fopen("produtos", "rb");
+	printf("Número de colisões: %d\n", hash__colisions(hash_produto, MAXHASHSIZE));
 
-	scanf("%s", id);
+	for (i = 0; i < MAXHASHSIZE; ++i)
+	{	
 
-	int idx = hash__search(hash_produto, id);
+		printf("%d -> ", i);
+		for (j = hash_produto[i].first; j; j = j->next)
+			printf("%d -> ", j->data);
 
-	if (idx < 0)
-		printf("Registro não encontrado\n");
-	else
-	{
-
-		fseek(bin, idx * sizeof(product_t), SEEK_SET);
-		fread(&produto, sizeof(product_t), 1, bin);	
-		info_print(produto);
+		printf("\\");
+		printf("\n");
 
 	}
 
-	scanf("%s", id);
+	// fclose(bin);
+	// bin = fopen("produtos", "rb");
+
+	// binary__tree__range__query(arvore, 780, 1000, bin);
+
+	// scanf("%s", id);
+
+	// int idx = hash__search(hash_produto, id);
+
+	// if (idx < 0)
+	// 	printf("Registro não encontrado\n");
+	// else
+	// {
+
+	// 	fseek(bin, idx * sizeof(product_t), SEEK_SET);
+	// 	fread(&produto, sizeof(product_t), 1, bin);	
+	// 	info_print(produto);
+
+	// }
+
+	// scanf("%s", id);
 
 }
 
@@ -85,10 +102,10 @@ void get_product_info()
 	
 }
 
-void info_print(product_t produto)
-{
+// void info_print(product_t produto)
+// {
 
-	printf("Id: %d\nNome: %s\nDescrição: %s\nPreço: %.2f\nDisponibilidade: %d\nVencimento: %d\n\n",
-		produto.id, produto.nome, produto.descricao, produto.preco, produto.disponibilidade, produto.vencimento);
+// 	printf("Id: %d\nNome: %s\nDescrição: %s\nPreço: %.2f\nDisponibilidade: %d\nVencimento: %d\n\n",
+// 		produto.id, produto.nome, produto.descricao, produto.preco, produto.disponibilidade, produto.vencimento);
 
-}
+// }
