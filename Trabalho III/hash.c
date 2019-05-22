@@ -8,6 +8,7 @@ static uint32_t __rotl(uint32_t __x, int8_t __r);
 static uint32_t __avalanche(uint32_t __h);
 static uint32_t murmurhash(const void *__key, const uint32_t __len, uint32_t __seed);
 
+/* Makes a hash table of length SIZE. */
 hash_t * make__hash__table(const unsigned __size)
 {
 
@@ -20,7 +21,8 @@ hash_t * make__hash__table(const unsigned __size)
 
 }
 
-void hash__push(hash_t *__hash, const unsigned __register_pointer, const char *__data)
+/* Puts the key and its registry pointer into the hash table. */
+void hash__push(hash_t *__hash, const char *__key, const unsigned __rp)
 {
 
 	element_t *aux;
@@ -29,7 +31,8 @@ void hash__push(hash_t *__hash, const unsigned __register_pointer, const char *_
 	if (!aux)
 		exit(1);
 
-	uint32_t idx = murmurhash(__data, strlen(__data), 123);
+
+	uint32_t idx = murmurhash(__key, strlen(__key), 0) % 13759;
 
 	if (__hash[idx].first)
 		__hash[idx].last->next = aux;
@@ -38,25 +41,26 @@ void hash__push(hash_t *__hash, const unsigned __register_pointer, const char *_
 
 	__hash[idx].last = aux;
 	aux->next = NULL;
-	aux->data = atoi(__data);
-	aux->register_pointer = __register_pointer;
+	aux->data = atoi(__key);
+	aux->registry_pointer = __rp;
 
 }
 
-int hash__search(hash_t *__hash, const char *__data)
+/* Does a search for the key in the hash table index. */
+int hash__search(hash_t *__hash, const char *__key)
 {
 
 	element_t *aux;
-	unsigned idx = murmurhash(__data, strlen(__data), 123);
+	unsigned idx = murmurhash(__key, strlen(__key), 123) % 9887;
 
-	unsigned id = atoi(__data);
+	unsigned id = atoi(__key);
 	aux = __hash[idx].first;
 
 	if (!aux)
 		return -1;
 
 	if (aux->data == id)
-		return aux->register_pointer;
+		return aux->registry_pointer;
 	else
 	{
 
@@ -64,7 +68,7 @@ int hash__search(hash_t *__hash, const char *__data)
 		{
 
 			if (aux->data == id)
-				return aux->register_pointer;
+				return aux->registry_pointer;
 
 			aux = aux->next;			
 
@@ -76,6 +80,7 @@ int hash__search(hash_t *__hash, const char *__data)
 
 }
 
+/* Does a left rotation of R bits in X. */
 static uint32_t __rotl(uint32_t __x, int8_t __r)
 {
 
@@ -83,6 +88,7 @@ static uint32_t __rotl(uint32_t __x, int8_t __r)
 
 }
 
+/* Bitmixer of h. */
 static uint32_t __avalanche(uint32_t __h)
 {
 
@@ -96,6 +102,24 @@ static uint32_t __avalanche(uint32_t __h)
 
 }
 
+/* Counts the number of colisions in the hash table. */
+unsigned hash__colisions(const hash_t *__hash, const unsigned __size)
+{
+
+	element_t *j;
+	unsigned i, ans = 0;
+
+	for (i = 0; i < __size; ++i)
+		if (__hash[i].first && __hash[i].first->next)
+			for (j = __hash[i].first->next; j; j = j->next)
+				++ans;
+
+	return ans;
+
+}
+
+
+/* Hash function returns a 32bit hash number. */
 static uint32_t murmurhash(const void *__key, const uint32_t __len, uint32_t __seed)
 {
 
@@ -149,6 +173,6 @@ static uint32_t murmurhash(const void *__key, const uint32_t __len, uint32_t __s
 	h ^= __len;
 	h = __avalanche(h);
 
-	return h % 10177;
+	return h;
 
 }
