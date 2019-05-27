@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "hash.h"
-#include "product.h"
 
 static uint32_t __rotl(uint32_t __x, int8_t __r);
 static uint32_t __avalanche(uint32_t __h);
@@ -26,12 +25,14 @@ hash_t * make__hash__table(const unsigned __size)
 void hash__push(hash_t *__hash, const char *__key, const unsigned __rp)
 {
 
-	element_t *aux = (element_t *) malloc(sizeof(element_t));
+	element_t *aux;
+	aux = (element_t *) malloc(sizeof(element_t));
 
 	if (!aux)
 		exit(1);
 
-	uint32_t idx = murmurhash(__key, strlen(__key), 0) % MAXHASHSIZE;
+
+	uint32_t idx = murmurhash(__key, strlen(__key), 0) % 13759;
 
 	if (__hash[idx].first)
 		__hash[idx].last->next = aux;
@@ -46,27 +47,20 @@ void hash__push(hash_t *__hash, const char *__key, const unsigned __rp)
 }
 
 /* Does a search for the key in the hash table index. */
-void hash__search(hash_t *__hash, const char *__key, FILE *__STREAM)
+int hash__search(hash_t *__hash, const char *__key)
 {
 
 	element_t *aux;
-	unsigned idx = murmurhash(__key, strlen(__key), 0) % MAXHASHSIZE;
+	unsigned idx = murmurhash(__key, strlen(__key), 123) % 9887;
 
 	unsigned id = atoi(__key);
 	aux = __hash[idx].first;
 
 	if (!aux)
-		return;
+		return -1;
 
 	if (aux->data == id)
-	{
-		
-		product_t tmp;
-		fseek(__STREAM, aux->registry_pointer * sizeof(product_t), SEEK_SET);
-		fread(&tmp, sizeof(product_t), 1, __STREAM);
-		return;
-		
-	}
+		return aux->registry_pointer;
 	else
 	{
 
@@ -74,20 +68,13 @@ void hash__search(hash_t *__hash, const char *__key, FILE *__STREAM)
 		{
 
 			if (aux->data == id)
-			{
-				
-				product_t tmp;
-				fseek(__STREAM, aux->registry_pointer * sizeof(product_t), SEEK_SET);
-				fread(&tmp, sizeof(product_t), 1, __STREAM);
-				return;
-
-			}
+				return aux->registry_pointer;
 
 			aux = aux->next;			
 
 		}
 
-		return;
+		return -1;
 		
 	}
 
@@ -130,6 +117,7 @@ unsigned hash__colisions(const hash_t *__hash, const unsigned __size)
 	return ans;
 
 }
+
 
 /* Hash function returns a 32bit hash number. */
 static uint32_t murmurhash(const void *__key, const uint32_t __len, uint32_t __seed)
