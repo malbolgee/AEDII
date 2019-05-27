@@ -1,8 +1,17 @@
-output: main.o bin_tree.o hash.o
-	gcc main.o bin_tree.o hash.o -o output
+output: main.o bin_tree.o hash.o product.o fort.o bin_tree_f.o
+	gcc main.o bin_tree.o hash.o product.o fort.o bin_tree_f.o -o output
 
 main.o: main.c
 	gcc -c main.c
+
+fort.o: fort.c
+	gcc -c fort.c
+
+bin_tree_f.o: bin_tree_f.c
+	gcc -c bin_tree_f.c
+
+product.o: product.c
+	gcc -c product.c
 
 bin_tree.o: bin_tree.c
 	gcc -c bin_tree.c
