@@ -1,5 +1,4 @@
 #include <stdint.h>
-#include <stdio.h>
 #pragma once
 
 typedef struct __node__hash{
@@ -18,9 +17,8 @@ typedef struct __hash__table{
 } hash_t;
 
 #define ROTL32(x, y) __rotl(x, y);
-#define MAXHASHSIZE 20011
 
 hash_t * make__hash__table(const unsigned __size);
-void     hash__push(hash_t *__hash, const char *__key, const unsigned __rp);
-void     hash__search(hash_t *__hash, const char *__data, FILE *__STREAM);
+void hash__push(hash_t *__hash, const char *__key, const unsigned __rp);
+int hash__search(hash_t *__hash, const char *__data);
 unsigned hash__colisions(const hash_t *__hash, const unsigned __size);
