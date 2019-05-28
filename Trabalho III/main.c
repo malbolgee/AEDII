@@ -10,7 +10,9 @@
 
 #define MAXID 15000
 
-void result_table_id(char *, char *, char *, char *);
+void result_table_id(char (*data)[3][60]);
+void table_fill(char (*data)[3][60], int test);
+enum { ID, PC };
 
 void main ()
 {
@@ -24,6 +26,7 @@ void main ()
 	clock_t t_ini, t_fim;
 	double soma1, soma2, soma3;
 	char ssoma1[30], ssoma2[30], ssoma3[30];
+	char data[3][3][60] = { 0 };
 
 	// Criação da Árvore e da tabela Hash;
 	make__binary__tree(&arvore);
@@ -52,9 +55,9 @@ void main ()
 
 	int aux = hash__colisions(hash_produto, MAXHASHSIZE);
 	printf("Quantidade de colisões a tabela hash: %d\n", aux);
-	printf("Porcentagem de colisões na tebala hash: %.2f%%\n", (aux * 100.0f)/ MAXHASHSIZE);
+	printf("Porcentagem de colisões na tebala hash: %.2f%%\n", (aux * 100.0f) / MAXHASHSIZE);
 
-	// Abertura do arquivo produtos no modo leitura;
+	// Abertura do arquivo 'produtos' no modo leitura;
 	bin = fopen("produtos", "rb");
 
 	// Tempos das buscas com árvore, com hash e sequencial
@@ -82,29 +85,48 @@ void main ()
 
 	}
 
-	sprintf(ssoma1, "%lf", soma1 / 30); sprintf(ssoma2, "%lf", soma2 / 30);sprintf(ssoma3, "%lf", soma3 / 30);
-	result_table_id("Tempo Medio de Busca em Arquivo por Atributo Chave", ssoma1, ssoma2, ssoma3);
+	sprintf(data[2][0], "%lf", soma1 / 30); sprintf(data[2][1], "%lf", soma2 / 30); sprintf(data[2][2], "%lf", soma3 / 30);
+	table_fill(data, ID);
+	result_table_id(data);
 	
 }
 
-void result_table_id(char *s1, char *s2, char *s3, char *s4)
+void result_table_id(char (*data)[3][60])
 {
 
 	ft_table_t *table = ft_create_table();
-    ft_set_border_style(table, FT_SOLID_STYLE);
+	ft_set_border_style(table, FT_SOLID_STYLE);
 
-    ft_write_ln(table, s1);
-    ft_write_ln(table, "Indexado por ABP", "Indexado por Hashing", "Sequencial");
-    ft_write_ln(table, strcat(s2, " ms"), strcat(s3, " ms"), strcat(s4, " ms"));
-	
-    ft_set_cell_prop(table, 0, FT_ANY_COLUMN, FT_CPROP_ROW_TYPE, FT_ROW_HEADER);
+	ft_write_ln(table, data[0][0]);
+	ft_write_ln(table, data[1][0], data[1][1], data[1][2]);
+	ft_write_ln(table, data[2][0], data[2][1], data[2][2]);
+
+	ft_set_cell_prop(table, 0, FT_ANY_COLUMN, FT_CPROP_ROW_TYPE, FT_ROW_HEADER);
 	ft_set_cell_prop(table, 0, 0, FT_CPROP_CONT_FG_COLOR, FT_COLOR_GREEN);
 	ft_set_cell_prop(table, 2, FT_ANY_COLUMN, FT_CPROP_CONT_TEXT_STYLE, FT_TSTYLE_ITALIC);
-    ft_set_cell_prop(table, FT_ANY_ROW, FT_ANY_COLUMN, FT_CPROP_TEXT_ALIGN, FT_ALIGNED_CENTER);
-    ft_set_cell_prop(table, 1, FT_ANY_COLUMN, FT_CPROP_ROW_TYPE, FT_ROW_HEADER);
-    ft_set_cell_span(table, 0, 0, 3);
+	ft_set_cell_prop(table, FT_ANY_ROW, FT_ANY_COLUMN, FT_CPROP_TEXT_ALIGN, FT_ALIGNED_CENTER);
+	ft_set_cell_prop(table, 1, FT_ANY_COLUMN, FT_CPROP_ROW_TYPE, FT_ROW_HEADER);
+	ft_set_cell_span(table, 0, 0, 3);
 
-    printf("%s\n", ft_to_string(table));
-    ft_destroy_table(table);
+	printf("%s\n", ft_to_string(table));
+	ft_destroy_table(table);
+
+}
+
+void table_fill(char (*data)[3][60], int test)
+{
+
+	if (test == ID)
+	{
+
+		strcpy(data[0][0], "Tempo Medio de Busca em Arquivo por Atributo Chave");
+		strcpy(data[1][0], "Indexado por ABP");
+		strcpy(data[1][1], "Indexado por Hashing");
+		strcpy(data[1][2], "Sequencial");
+		strcat(data[2][0], " ms");
+		strcat(data[2][1], " ms");
+		strcat(data[2][2], " ms");
+
+	}
 
 }
