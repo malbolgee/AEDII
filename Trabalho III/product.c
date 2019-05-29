@@ -40,3 +40,49 @@ int linear__registry__search(const unsigned __key, FILE *__STREAM)
 	return -1;
 
 }
+
+/* Sequencial search for the key values spacified by the delim*/
+int linear__conditional__price__query(FILE *__STREAM, const float __key, const char __delim)
+{
+
+	if (__delim == '>')
+	{
+
+		unsigned i = 0;
+		product_t tmp;
+		while (fread(&tmp, sizeof(product_t), 1, __STREAM) != 0)
+			if (tmp.price > __key)
+				++i;
+				
+		return i;
+
+	}
+	else if (__delim == '<')
+	{
+
+		unsigned i = 0;
+		product_t tmp;
+		while (fread(&tmp, sizeof(product_t), 1, __STREAM) != 0)
+			if (tmp.price < __key)
+				++i;
+			
+		return i;
+
+	}
+	
+}
+
+/* Sequential search in STREAM for the values that are inside 
+   delimiters delim1 and delim2. */
+int linear__range__price__query(FILE *__STREAM, const float __delim1, const float __delim2)
+{
+	
+	unsigned i = 0;
+	product_t tmp;
+	while (fread(&tmp, sizeof(product_t), 1,__STREAM) != 0)
+		if (tmp.price >= __delim1 && tmp.price <= __delim2)
+			++i;
+
+	return i;
+
+}
