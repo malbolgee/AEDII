@@ -6,6 +6,7 @@
 #include "bin_tree.h"
 #include "hash.h"
 #include "product.h"
+#include "bin_tree_f.h"
 #include "fort.h"
 
 #define MAXID 15000
@@ -13,6 +14,8 @@
 void result_table_id(char (*data)[3][60]);
 void table_fill(char (*data)[3][60], int test);
 enum { ID, PC };
+
+int range_tree_elements = 0;
 
 void main ()
 {
@@ -49,6 +52,14 @@ void main ()
 
 	}
 
+	i = 0;
+	fclose(json);
+	json = fopen("out", "r");
+	BST_p_t *price_index_tree;
+	make__price__index__tree(&price_index_tree);
+	while (get_product_info(&produto, json) != EOF)
+		price_index_tree = BST__price__push(price_index_tree, produto.price, i), ++i;
+
 	// Fechando os arquivos;
 	fclose(bin);
 	fclose(json);
@@ -59,6 +70,18 @@ void main ()
 
 	// Abertura do arquivo 'produtos' no modo leitura;
 	bin = fopen("produtos", "rb");
+
+	range_tree_elements = 0;
+	aux = linear__range__price__query(bin, 3.50, 6.50);
+	printf("Quantidade de Elementos na busca linear em range: %d\n", aux);
+	BST__price__range__query(price_index_tree, 3.50, 6.50, bin);
+	printf("Quantidade de Elementos na busca usando uma BST de índice em range: %d\n", range_tree_elements);
+	range_tree_elements = 0;
+	rewind(bin);
+	aux = linear__conditional__price__query(bin, 7.50, '>');
+	printf("Quantidade de elementos na busca por '>' k1 sequencial: %d\n", aux);
+	BST__price__range__gt(price_index_tree, 7.50, bin);
+	printf("Quantidade de elementos na busca por '>' no index BST: %d\n", range_tree_elements);	
 
 	// Tempos das buscas com árvore, com hash e sequencial
 	soma1 = soma2 = soma3 = 0;
