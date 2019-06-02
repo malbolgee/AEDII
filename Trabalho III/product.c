@@ -41,7 +41,7 @@ int linear__registry__search(const unsigned __key, FILE *__STREAM)
 
 }
 
-/* Sequencial search for the key values spacified by the delim*/
+/* Sequencial search for the key values spacified by the delim */
 int linear__conditional__price__query(FILE *__STREAM, const float __key, const char __delim)
 {
 
@@ -72,8 +72,8 @@ int linear__conditional__price__query(FILE *__STREAM, const float __key, const c
 	
 }
 
-/* Sequential search in STREAM for the values that are inside 
-   delimiters delim1 and delim2. */
+/* Sequential search in STREAM for the values that are greater or
+   equal to delim1 and lesser or equal to delim2. */
 int linear__range__price__query(FILE *__STREAM, const float __delim1, const float __delim2)
 {
 	
