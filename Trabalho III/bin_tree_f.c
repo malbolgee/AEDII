@@ -44,7 +44,7 @@ void BST__price__range__query(BST_p_t *__root, const float __k1, const float __k
 	if (!__root)
 		return;
 
-	if (__k1 <= __root->key)
+	if (__k1 < __root->key)
 		BST__price__range__query(__root->left, __k1, __k2, __STREAM);
 
 	if (__k1 <= __root->key && __k2 >= __root->key)
@@ -53,11 +53,10 @@ void BST__price__range__query(BST_p_t *__root, const float __k1, const float __k
 		product_t tmp;
 		fseek(__STREAM, __root->registry_pointer * sizeof(product_t), SEEK_SET);
 		fread(&tmp, sizeof(product_t), 1, __STREAM);
-		++range_tree_elements;
 
 	}
 
-	if (__k2 >= __root->key)
+	if (__k2 > __root->key)
 		BST__price__range__query(__root->right, __k1, __k2, __STREAM);
 
 }
@@ -69,20 +68,19 @@ void BST__price__range__gt(BST_p_t *__root, const float __k1, FILE *__STREAM)
 	if (!__root)
 		return;
 
-	BST__price__range__gt(__root->left, __k1, __STREAM);
-	BST__price__range__gt(__root->right, __k1, __STREAM);
+	if (__root->key > __k1)
+		BST__price__range__gt(__root->left, __k1, __STREAM);
 
+	BST__price__range__gt(__root->right, __k1, __STREAM);
+	
 	if (__root->key > __k1)
 	{
 
 		product_t tmp;
 		fseek(__STREAM, __root->registry_pointer * sizeof(product_t), SEEK_SET);
 		fread(&tmp, sizeof(product_t), 1, __STREAM);
-		++range_tree_elements;
 
 	}
-
-	return;
 
 }
 
@@ -93,8 +91,10 @@ void BST__price__range__lt(BST_p_t *__root, const float __k1, FILE *__STREAM)
 	if (!__root)
 		return;
 
-	BST__price__range__lt(__root->left, __k1, __STREAM);
-	BST__price__range__lt(__root->right, __k1, __STREAM);
+	BST__price__range__gt(__root->left, __k1, __STREAM);
+
+	if (__root->key > __k1)
+		BST__price__range__lt(__root->right, __k1, __STREAM);
 
 	if (__root->key < __k1)
 	{
@@ -102,12 +102,9 @@ void BST__price__range__lt(BST_p_t *__root, const float __k1, FILE *__STREAM)
 		product_t tmp;
 		fseek(__STREAM, __root->registry_pointer * sizeof(product_t), SEEK_SET);
 		fread(&tmp, sizeof(product_t), 1, __STREAM);
-		++range_tree_elements;
 	
 	}
 	
-	return;
-
 }
 
 void infix(BST_p_t *__root)
