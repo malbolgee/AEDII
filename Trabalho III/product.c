@@ -4,7 +4,7 @@
 int get_product_info(product_t *__product, FILE *__STREAM)
 {
 
-	return fscanf(__STREAM, "%u%*[: ]%[ A-Za-z0-9-.&'+\"%%()\\/$é!#?ñ,]%*[: ]%[ A-Za-z0-9]%*[: ]%f%*[: ]%d%*[: ]%u\n", 
+	return fscanf(__STREAM, "%u%*[: ]%[ A-Za-z0-9-.&'+\"%%()\\/$!#?,]%*[: ]%[ A-Za-z0-9]%*[: ]%f%*[: ]%d%*[: ]%u\n", 
 			&__product->id, __product->name, __product->description, &__product->price, 
 			&__product->availability, &__product->due);
 	
