@@ -9,12 +9,13 @@ typedef struct __hash__array__type{
 
 } hash_t;
 
-#define ROTL32(x, y) __rotl(x, y);
+#ifndef PRIME_HASH_SIZE
+	#define PRIME_HASH_SIZE 100003U // A prime number for the hash table size.
+#endif
 
-#define PRIME_HASH_SIZE 100003U // Prime number for hash table size.
-#define COL_START_P PRIME_HASH_SIZE + 1
-#define COL_END_P (unsigned)((PRIME_HASH_SIZE * 0.15F) + COL_START_P + 1)
-#define MAX_HASH_SIZE COL_END_P
+#define COL_START_P PRIME_HASH_SIZE + 1 // Marks the beginning of the 'collision-zone'.
+#define COL_END_P (unsigned)((PRIME_HASH_SIZE * 0.15F) + COL_START_P + 1) // Calculates 15% plus space for the 'collision-zone'. 
+#define MAX_HASH_SIZE COL_END_P // Real size of the hash table.
 #define EMPTY -1
 
 hash_t * make__hash__table(const unsigned __size);
