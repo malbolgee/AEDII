@@ -27,7 +27,7 @@ hash_t * make__hash__table(const unsigned __size)
 void hash__push(hash_t *__hash, const unsigned __data, const unsigned __rp)
 {
 
-	int idx = hash(__data) % (PRIME_HASH_SIZE);
+	unsigned idx = hash(__data) % (PRIME_HASH_SIZE);
 	if (__hash[idx].data == EMPTY)
 	{
 
@@ -87,12 +87,15 @@ void hash__find(hash_t *__hash, const unsigned __data, FILE *__STREAM)
 
 }
 
-static uint32_t hash(uint32_t x) 
+/* MurMurHash3 bitmixer. */
+static uint32_t hash(uint32_t x)
 {
 
-    x = ((x >> 16) ^ x) * 0x45d9f3b;
-    x = ((x >> 16) ^ x) * 0x45d9f3b;
-    x = (x >> 16) ^ x;
+	x ^= x >> 16;
+	x *= 0x85ebca6b;
+	x ^= x >> 13;
+	x *= 0xc2b2ae35;
+	x ^= x >> 16;
 	
     return x;
 
