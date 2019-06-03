@@ -18,5 +18,5 @@ typedef struct __product__type{
 int  get_product_info(product_t *__product, FILE *__STREAM);
 void info_print(product_t produto);
 int  linear__registry__search(const unsigned __key, FILE *__STREAM);
-int  linear__conditional__price__query(FILE *__STREAM, const float __key, const char __delim);
-int  linear__range__price__query(FILE *__STREMA, const float __delim1, const float __delim2);
+int  linear__conditional__un__query(FILE *__STREAM, const unsigned __key, const char __delim);
+int  linear__range__un__query(FILE *__STREMA, const unsigned __delim1, const unsigned __delim2);
