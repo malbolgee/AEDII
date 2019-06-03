@@ -60,6 +60,8 @@ void hash__find(hash_t *__hash, const unsigned __data, FILE *__STREAM)
 		return;
 		
 	}
+	else if (__hash[idx].data == EMPTY)
+		return;
 	else
 	{
 
