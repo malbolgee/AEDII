@@ -23,10 +23,9 @@ void info_print(product_t produto)
 int linear__registry__search(const unsigned __key, FILE *__STREAM)
 {
 
-	unsigned i;
 	product_t aux;
+	unsigned i = 0;
 
-	i = 0;
 	while (fread(&aux, sizeof(product_t), 1, __STREAM) != 0)
 	{
 		
@@ -41,46 +40,46 @@ int linear__registry__search(const unsigned __key, FILE *__STREAM)
 
 }
 
-/* Sequencial search for the key values spacified by the delim */
-int linear__conditional__price__query(FILE *__STREAM, const float __key, const char __delim)
+/* Sequencial search for the key values spacified by delim */
+int linear__conditional__un__query(FILE *__STREAM, const unsigned __key, const char __delim)
 {
+
+	product_t tmp;	
+	unsigned i = 0;
 
 	if (__delim == '>')
 	{
-
-		unsigned i = 0;
-		product_t tmp;
+	
 		while (fread(&tmp, sizeof(product_t), 1, __STREAM) != 0)
-			if (tmp.price > __key)
+			if (tmp.availability > __key)
 				++i;
 				
-		return i;
+		return i > 0 ? i : -1;
 
 	}
 	else if (__delim == '<')
 	{
 
-		unsigned i = 0;
-		product_t tmp;
 		while (fread(&tmp, sizeof(product_t), 1, __STREAM) != 0)
-			if (tmp.price < __key)
+			if (tmp.availability < __key)
 				++i;
 			
-		return i;
+		return i > 0 ? i : -1;
 
 	}
 	
 }
 
-/* Sequential search in STREAM for the values that are greater or
-   equal to delim1 and lesser or equal to delim2. */
-int linear__range__price__query(FILE *__STREAM, const float __delim1, const float __delim2)
+/* Sequential search in STREAM for the values that are greater to 
+   delim1 and lesser to delim2. */
+int linear__range__un__query(FILE *__STREAM, const unsigned __delim1, const unsigned __delim2)
 {
 	
-	unsigned i = 0;
 	product_t tmp;
+	unsigned i = 0;
+
 	while (fread(&tmp, sizeof(product_t), 1,__STREAM) != 0)
-		if (tmp.price >= __delim1 && tmp.price <= __delim2)
+		if (tmp.availability > __delim1 && tmp.availability < __delim2)
 			++i;
 
 	return i;
