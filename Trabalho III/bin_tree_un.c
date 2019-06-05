@@ -73,7 +73,7 @@ void BST__un__range__gt(BSTun_t *__root, const unsigned __k1, FILE *__STREAM)
 
 	BST__un__range__gt(__root->right, __k1, __STREAM);
 	
-	if (__root->key > __k1)
+	if (__root->key >= __k1)
 	{
 
 		product_t tmp;
@@ -96,7 +96,7 @@ void BST__un__range__lt(BSTun_t *__root, const unsigned __k1, FILE *__STREAM)
 	if (__root->key <= __k1)
 		BST__un__range__lt(__root->right, __k1, __STREAM);
 
-	if (__root->key < __k1)
+	if (__root->key <= __k1)
 	{
 
 		product_t tmp;
