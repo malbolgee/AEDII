@@ -39,8 +39,16 @@ void BST__id__search(BST_t *__root, const unsigned __key, FILE *__STREAM)
 {
 	
 	if (!__root)
+	{
+
+		#ifdef __PRINT__PRODUCT__INFO
+			puts("Registro não encontrado.");
+		#endif
+
 		return;
-	
+		
+	}
+
 	if (__root->id < __key)
 		return BST__id__search(__root->right, __key, __STREAM);
 	else if (__root->id > __key)
@@ -51,6 +59,11 @@ void BST__id__search(BST_t *__root, const unsigned __key, FILE *__STREAM)
 		product_t tmp;
 		fseek(__STREAM, __root->registry_pointer * sizeof(product_t), SEEK_SET);
 		fread(&tmp, sizeof(product_t), 1, __STREAM);
+
+		#ifdef __PRINT__PRODUCT__INFO
+			info_print(tmp);
+		#endif
+
 		return;
 
 	}
