@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include "hash.h"
 #include "product.h"
 
@@ -11,6 +12,7 @@ extern unsigned __stt;
 extern unsigned __end;
 extern unsigned hash_colisions;
 
+/* Make a hash table of lenght size. */
 hash_t * make__hash__table(const unsigned __size)
 {
 
@@ -24,6 +26,7 @@ hash_t * make__hash__table(const unsigned __size)
 
 }
 
+/* Push data and its registry pointer into the hash table. */
 void hash__push(hash_t *__hash, const unsigned __data, const unsigned __rp)
 {
 
@@ -46,6 +49,7 @@ void hash__push(hash_t *__hash, const unsigned __data, const unsigned __rp)
 
 }
 
+/* Find data on stream indexed by hash table. */
 void hash__find(hash_t *__hash, const unsigned __data, FILE *__STREAM)
 {
 
@@ -57,11 +61,24 @@ void hash__find(hash_t *__hash, const unsigned __data, FILE *__STREAM)
 		product_t tmp;
 		fseek(__STREAM, __hash[idx].registry_pointer * sizeof(product_t), SEEK_SET);
 		fread(&tmp, sizeof(product_t), 1, __STREAM);
+
+		#ifdef __PRINT__PRODUCT__INFO
+			info_print(tmp);
+		#endif
+
 		return;
 		
 	}
 	else if (__hash[idx].data == EMPTY)
+	{
+
+		#ifdef __PRINT__PRODUCT__INFO
+			puts("Registro não encontrado.");
+		#endif
+
 		return;
+
+	}
 	else
 	{
 
@@ -75,12 +92,21 @@ void hash__find(hash_t *__hash, const unsigned __data, FILE *__STREAM)
 				product_t tmp;
 				fseek(__STREAM, __hash[i].registry_pointer * sizeof(product_t), SEEK_SET);
 				fread(&tmp, sizeof(product_t), 1, __STREAM);
+
+				#ifdef __PRINT__PRODUCT__INFO
+					info_print(tmp);
+				#endif
+
 				return;
 
 			}
 
 		}
 
+		#ifdef __PRINT__PRODUCT__INFO
+			puts("Registro não encontrado.");
+		#endif
+		
 		return;
 
 	}
