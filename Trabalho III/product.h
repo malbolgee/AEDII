@@ -12,6 +12,10 @@ typedef struct __product__type{
 
 } product_t;
 
+#if false
+	#define __PRINT__PRODUCT__INFO
+#endif
+
 #define MAX_UN_SIZE 100000U
 #define MAX_ID 2000000000U
 
