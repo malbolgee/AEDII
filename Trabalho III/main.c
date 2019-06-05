@@ -5,10 +5,10 @@
 #include <time.h>
 #include <unistd.h>
 #include "bin_tree.h"
-#include "hash.h"
 #include "product.h"
 #include "bin_tree_un.h"
 #include "fort.h"
+#include "hash.h"
 
 #if false
 	#define DEBUG
@@ -31,7 +31,7 @@ unsigned hash_colisions;
 int prime[24] = { 139, 439, 619, 691, 953, 1013, 1187, 1223, 1229, 1451, 1523, 1613, 1733, 1913, 1931, 2027, 2039, 2213, 2293, 2381, 2459, 2467, 2663, 2719 };
 int keys[30];
 
-void main ()
+int main (int argc, char **argv)
 {
 
 	unsigned i = 0, j = 0;
@@ -88,7 +88,6 @@ void main ()
 		scanf("%d", &i);
 	#endif
 		
-
 	#ifdef DEBUG
 		printf("Valor de end: %u\n", __end);
 		printf("Valor de stt: %u\n", __stt);
@@ -178,6 +177,8 @@ void main ()
 	sprintf(data[0], "%lf", soma1 / 30); sprintf(data[1], "%lf", soma2 / 30); sprintf(data[2], "%lf", soma3 / 30);
 	sprintf(data[3], "%lf", soma4 / 30); sprintf(data[4], "%lf", soma5 / 30); sprintf(data[5], "%lf", soma6 / 30);
 	result_table_price(data);
+
+	return 0;
 
 }
 
