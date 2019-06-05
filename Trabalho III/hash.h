@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
+#include <stdbool.h>
 #pragma once
 
 typedef struct __hash__array__type{
