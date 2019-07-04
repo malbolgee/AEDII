@@ -9,6 +9,7 @@
 
 static int __parent(int __vertex, int *p);
 
+/* Creates an adjacency matrix with a vertex number of vertices. */
 void make_graph(graph_t *__graph, const unsigned __vertex)
 {
 
@@ -24,15 +25,17 @@ void make_graph(graph_t *__graph, const unsigned __vertex)
 
 }
 
-
-void print_graph(const graph_t __graph, const unsigned __vertex)
+/* prints the Adjacency Matrix in the screen. */
+void print_graph(const graph_t __graph)
 {
 
 	unsigned i, j;
-	for (i = 0; i < __vertex; ++i)
+	unsigned vertex = __graph.vertex;
+
+	for (i = 0; i < vertex; ++i)
 	{
 
-		for (j = 0; j < __vertex; ++j)
+		for (j = 0; j < vertex; ++j)
 			printf("%hhd ", __graph.adj[i][j]);
 
 		printf("\n");
@@ -41,23 +44,26 @@ void print_graph(const graph_t __graph, const unsigned __vertex)
 
 }
 
-void free_graph(graph_t *__graph, const unsigned __vertex)
+/* Destroy the graph passed as a parameter. */
+void free_graph(graph_t *__graph)
 {
 
-	unsigned i;
-	for (i = 0; i < __vertex; ++i)
+	unsigned i, vertex;
+	vertex = __graph->vertex;
+	for (i = 0; i < vertex; ++i)
 		free(__graph->adj[i]);
 
 	free(__graph->adj);
 
 }
 
+/* Does a dfs traversal in the graph. */
 void dfs(graph_t __graph, const unsigned __u)
 {
 
 	unsigned short i;
 	__graph.seen[__u] = true;
-	printf("Vertice: %d\n", __u);
+	printf("%d - ", __u);
 	for (i = 0; i < __graph.vertex; ++i)
 		if (__graph.adj[__u][i])
 			if(!__graph.seen[i])
@@ -65,30 +71,32 @@ void dfs(graph_t __graph, const unsigned __u)
 
 }
 
-void make_connected(graph_t *__graph, const unsigned __vertex, const float __connectivness)
+/* Creates a conected graph with given amount of connectivness. */
+void make_connected(graph_t *__graph, const float __connectivness)
 {
 
-	unsigned tmp;
+	unsigned tmp, vertex;
 	unsigned u, v, pu, pv, i;
 
-	int *p = calloc(__vertex, sizeof(int));
+	vertex = __graph->vertex;
+	int *p = calloc(vertex + 1, sizeof(int));
 
-	for (i = 1; i < __vertex; ++i)
+	for (i = 1; i <= vertex; ++i)
 		p[i] = i;
 
-	tmp = __vertex - 1;
+	tmp = vertex - 1;
 
 	while (tmp)
 	{
 
-		u = rand() % __vertex;
-		v = rand() % __vertex;
+		u = rand() % vertex;
+		v = rand() % vertex;
 
 		while (u == v)
 		{
 
-			u = rand() % __vertex;
-			v = rand() % __vertex;
+			u = rand() % vertex;
+			v = rand() % vertex;
 
 		}
 
@@ -111,19 +119,19 @@ void make_connected(graph_t *__graph, const unsigned __vertex, const float __con
 
 	}
 
-	tmp = ((__EDGES(__vertex, __connectivness)) - (__vertex - 1)) + 1;
+	tmp = ((__EDGES(vertex, __connectivness)) - (vertex - 1)) + 1;
 
 	while (tmp)
 	{
 
-		u = rand() % __vertex;
-		v = rand() % __vertex;
+		u = rand() % vertex;
+		v = rand() % vertex;
 
 		while (u == v)
 		{
 
-			v = rand() % __vertex;
-			u = rand() % __vertex;
+			v = rand() % vertex;
+			u = rand() % vertex;
 
 		}
 
@@ -143,5 +151,36 @@ static int __parent(int __vertex, int *p)
 		return __vertex;
 
 	return __parent(p[__vertex], p);
+
+}
+
+/* Does a bfs traversal in the graph. */
+void bfs(graph_t __graph, const unsigned __vertex)
+{
+
+	int i, j, str, end;
+	int queue[__graph.vertex];
+
+	str = end = 0;
+	queue[end++] = __vertex;
+	__graph.seen[__vertex] = true;
+
+	print_graph(__graph);
+
+	while (str < end)
+	{
+
+		int v = queue[str++];
+		printf("Vértice: %d\n", v);
+		for (i = 0; i < __graph.vertex; ++i)
+		{
+			
+			if (__graph.adj[v][i])
+				if (!__graph.seen[i])
+					__graph.seen[i] = true, queue[end++] = i;
+
+		}
+
+	}
 
 }
