@@ -27,3 +27,4 @@ void bfs(graph_t __graph, const unsigned __vertex);
 void dfs_c(graph_t *__graph, const unsigned __vertex);
 void reset(graph_t *__graph);
 void make_acyclic_graph(graph_t *__graph);
+void all_path(graph_t *__graph, const unsigned __vertex);
