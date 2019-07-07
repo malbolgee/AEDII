@@ -97,36 +97,18 @@ int main(int argc, char **argv)
 	}
 
 	printf("Média de tempo com caminhamento DFS %lf\n", soma1 / 20);
-	printf("Média de tempo com caminhamento BFS %lf\n", soma2 / 20);
+	printf("Média de tempo com caminhamento BFS %lf\n\n", soma2 / 20);
 
 	/*Todos os caminhos usando DFS. */
 
-	tam = (rand() % 10) + 10;
 	graph_t grafo_p;
+	make_graph(&grafo_p, 6);
+	make_connected(&grafo_p, 0.75);
 
-	make_graph(&grafo_p, tam);
-	make_connected(&grafo_p, 0.20);
 	printf("%sTODOS OS CAMINHOS USANDO DFS%s\n\n", RED, NOC);
-	for (i = 0, z = 1; i < tam; ++i, ++z)
-	{
+	printf("Grafo com 6 Vértices e 75%% de conectividade\n\n");
 
-		printf("%sCaminho %d%s\n", GRN, z, NOC);
-		k = 0;
-		dfs(grafo_p, i);
-		bool flag = false;
-		printf("{ ");
-		for (j = 0; j < k; ++j)
-			if (flag)
-				printf(", %d", ans[j]);
-			else
-				printf("%d", ans[j]), flag = true;
-
-		printf(" }");
-
-		printf("\n");
-		reset(&grafo_p);
-
-	}
+	all_path(&grafo_p, 0);
 
 	printf("\n\n");
 	graph_t grafo_4;
