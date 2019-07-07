@@ -96,8 +96,8 @@ int main(int argc, char **argv)
 
 	}
 
-	printf("Média de tempo com caminhamento DFS %lf\n", soma1 / 20);
-	printf("Média de tempo com caminhamento BFS %lf\n\n", soma2 / 20);
+	printf("Média de tempo com caminhamento DFS %lf ms\n", soma1 / 20);
+	printf("Média de tempo com caminhamento BFS %lf ms\n\n", soma2 / 20);
 
 	/*Todos os caminhos usando DFS. */
 
