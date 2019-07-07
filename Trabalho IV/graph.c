@@ -9,6 +9,7 @@
 #define __EDGES(x, y) (int)((((x * x) - x) / 2) * y)
 
 static int __parent(int __vertex, int *p);
+static void __all__paths(graph_t *__graph, int __vertex, int *__p, int __k);
 
 extern int k;
 extern int ans[1100];
@@ -285,5 +286,40 @@ void make_acyclic_graph(graph_t *__graph)
 		}
 
 	}
+
+}
+
+/* Find all paths in a graph from a given source. */
+void all_path(graph_t *__graph, const unsigned __vertex)
+{
+
+	int k = 0;
+	int p[__graph->vertex];
+	__all__paths(__graph, __vertex, p, k);
+
+}
+
+static void __all__paths(graph_t *__graph, int __vertex, int *__path,int __k)
+{
+
+	int i, end = 1;
+	__graph->seen[__vertex] = 1;
+	__path[__k] = __vertex;
+
+	for (i = 0; i < __graph->vertex; ++i)
+		if (__graph->adj[__vertex][i] && __graph->seen[i] != 1)
+			__all__paths(__graph, i, __path, __k + 1), end = 0;
+
+	if (end)
+	{
+
+		for (i = 0; i <= __k; ++i)
+			printf("%d ", __path[i]);
+		
+		printf("\n");
+		
+	}
+
+	__graph->seen[__vertex] = 2;
 
 }
