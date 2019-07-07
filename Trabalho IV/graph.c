@@ -3,11 +3,16 @@
 #include <time.h>
 #include <stdbool.h>
 #include <string.h>
+#include <unistd.h>
 #include "graph.h"
 
 #define __EDGES(x, y) (int)((((x * x) - x) / 2) * y)
 
 static int __parent(int __vertex, int *p);
+
+extern int k;
+extern int ans[1100];
+extern aux_t q[1100];
 
 /* Creates an adjacency matrix with a vertex number of vertices. */
 void make_graph(graph_t *__graph, const unsigned __vertex)
@@ -22,10 +27,12 @@ void make_graph(graph_t *__graph, const unsigned __vertex)
 	__graph->adj = __adj;
 	__graph->vertex = __vertex;
 	__graph->seen = (char *) calloc(__vertex, sizeof(char));
+	__graph->parent = (unsigned *) calloc(__vertex, sizeof(unsigned));
+	__graph->cycle = false;
 
 }
 
-/* prints the Adjacency Matrix in the screen. */
+/* Prints the Adjacency Matrix in the screen. */
 void print_graph(const graph_t __graph)
 {
 
@@ -54,6 +61,10 @@ void free_graph(graph_t *__graph)
 		free(__graph->adj[i]);
 
 	free(__graph->adj);
+	free(__graph->seen);
+	free(__graph->parent);
+	__graph->vertex = 0;
+	__graph->cycle = false;
 
 }
 
@@ -63,7 +74,7 @@ void dfs(graph_t __graph, const unsigned __u)
 
 	unsigned short i;
 	__graph.seen[__u] = true;
-	printf("%d - ", __u);
+	ans[k++] = __u;
 	for (i = 0; i < __graph.vertex; ++i)
 		if (__graph.adj[__u][i])
 			if(!__graph.seen[i])
@@ -117,11 +128,12 @@ void make_connected(graph_t *__graph, const float __connectivness)
 
 		}
 
+
 	}
 
-	tmp = ((__EDGES(vertex, __connectivness)) - (vertex - 1)) + 1;
+	tmp = ((__EDGES(vertex, __connectivness)) - (vertex - 1));
 
-	while (tmp)
+	while (tmp > 0)
 	{
 
 		u = rand() % vertex;
@@ -163,21 +175,112 @@ void bfs(graph_t __graph, const unsigned __vertex)
 
 	str = end = 0;
 	queue[end++] = __vertex;
+	q[__vertex].vertex = __vertex;
+	q[__vertex].level = 0;
 	__graph.seen[__vertex] = true;
-
-	print_graph(__graph);
 
 	while (str < end)
 	{
 
 		int v = queue[str++];
-		printf("Vértice: %d\n", v);
 		for (i = 0; i < __graph.vertex; ++i)
 		{
-			
+
 			if (__graph.adj[v][i])
+			{
 				if (!__graph.seen[i])
-					__graph.seen[i] = true, queue[end++] = i;
+				{
+
+					__graph.seen[i] = true;
+					queue[end++] = i;
+				 	q[i].level = q[v].level + 1;
+					q[i].vertex = i;
+
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
+/* Look for a cycle in a given graph. */
+void dfs_c(graph_t *__graph, const unsigned __vertex)
+{
+
+	unsigned i;
+	__graph->seen[__vertex] = true;
+	ans[k++] = __vertex;
+	if (__graph->cycle)
+		return;	
+
+	for (i = 0; i < __graph->vertex; ++i)
+	{
+
+		if (__graph->adj[__vertex][i])
+			if (!__graph->seen[i])
+				__graph->parent[i] = __vertex, dfs_c(__graph, i);
+			else if (__graph->parent[__vertex] != i)
+				__graph->cycle = true;
+
+	}
+
+}
+
+/* Resets a graph passed as parameter. */
+void reset(graph_t *__graph)
+{
+
+	unsigned i;
+	for (i = 0; i < __graph->vertex; ++i)
+		__graph->seen[i] = __graph->parent[i] = 0;
+
+}
+
+/* Creates a graph that does not contain a cycle. */
+void make_acyclic_graph(graph_t *__graph)
+{
+
+	unsigned tmp, vertex;
+	unsigned u, v, pu, pv, i;
+	vertex = __graph->vertex;
+	int *p = calloc(vertex + 1, sizeof(int));
+
+	for (i = 1; i <= vertex; ++i)
+		p[i] = i;
+
+	tmp = vertex - 1;
+
+	while (tmp)
+	{
+
+		u = rand() % vertex;
+		v = rand() % vertex;
+		
+		while (u == v)
+		{
+
+			u = rand() % vertex;
+			v = rand() % vertex;
+
+		}
+
+		if (!__graph->adj[u][v])
+		{
+
+			pu = __parent(u, p);
+			pv = __parent(v, p);
+
+			if (pu != pv)
+			{
+
+				p[pu] = p[pv];
+				__graph->adj[u][v] = __graph->adj[v][u] = 1;
+				--tmp;
+
+			}
 
 		}
 
