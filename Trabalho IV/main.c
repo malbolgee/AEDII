@@ -43,7 +43,8 @@ int main(int argc, char **argv)
 		t_ini = clock();
 		dfs(grafo, rand() % tam);
 		t_fim = clock();
-		soma1 += (double)((t_fim - t_ini) * 1000.0) / CLOCKS_PER_SEC;
+		double show = (double)((t_fim - t_ini) * 1000.0) / CLOCKS_PER_SEC;
+		soma1 += show;
 
 		bool flag = false;
 		printf("{ ");
@@ -54,6 +55,8 @@ int main(int argc, char **argv)
 				printf("%d", ans[j]), flag = true;
 
 		printf(" }");
+
+		printf("\n\n%sTEMPO DA DFS %lf%s\n", RED, show, NOC);
 
 		printf("\n\n");
 
@@ -66,8 +69,8 @@ int main(int argc, char **argv)
 		t_ini = clock();
 		bfs(grafo, ver);
 		t_fim = clock();
-		
-		soma2 += (double)((t_fim - t_ini) * 1000.0) / CLOCKS_PER_SEC;
+		show = (double)((t_fim - t_ini) * 1000.0) / CLOCKS_PER_SEC;
+		soma2 += show;
 
 		qsort(q, tam, sizeof(aux_t), compara);
 
@@ -89,6 +92,8 @@ int main(int argc, char **argv)
 			}
 		}
 		
+		printf("\n\n%sTEMPO DA BFS %lf%s\n", RED, show, NOC);
+
 		printf("\n\n");
 		free_graph(&grafo);
 
